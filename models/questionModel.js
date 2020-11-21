@@ -6,7 +6,12 @@ let questionSchema = new mongoose.Schema({
     bisayaWords: [{type: String}],
     englishWords:[{type: String}], 
     lesson: String,
-    // comment: [comment]
+    comment: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Comment'
+        }
+    ]
 })
 
 
