@@ -17,7 +17,7 @@ router.post('/register', async (req, res) => {
         const {username, password} = req.body
         const user = new User({username})
         const registerUser = await User.register(user, password)
-        res.send(`<strong>${user.username}</strong> has been added`)
+        res.redirect('../')
     } catch (e) {
         console.log('Register failed', e)
         res.redirect('register')
