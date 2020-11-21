@@ -10,7 +10,19 @@ router.get('/', (req, res) => {
 })
 
 router.get('/add', (req, res) => {
-    res.render('addPhrase')
+    res.render('addLesson')
+})
+
+router.post('/add', async (req, res) => {
+    let question = req.body.phrase
+    let add = await Question.create(question, (err, newQuestion) => {
+        if(err){
+            console.log(err)
+        }
+        console.log('You entered this to the database', newQuestion)
+    })
+    console.log('Entered lesson to the database', add)
+    res.send(`You entered something`)
 })
 
 router.get('/:lesson', async (req, res) => {

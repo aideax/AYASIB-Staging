@@ -50,7 +50,7 @@ passport.deserializeUser(User.deserializeUser())
 
 app.use((req, res, next) => {
     res.locals.currentUser = req.user
-    console.log(req.user)
+    console.log('Logged in user', req.user)
     next()
 })
 
@@ -74,7 +74,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('*', (req, res) => {
-    res.send('<h1> WELCOME TO AYASIB </h1>')
+    res.redirect('/')
 })
 
 
