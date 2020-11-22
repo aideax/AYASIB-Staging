@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Question = require('../models/questionModel')
-
+const {isLoggedIn} = require('../middleware')
 
 
 
@@ -9,12 +9,24 @@ router.get('/', (req, res) => {
     res.render('allLessons')
 })
 
-router.get('/add', (req, res) => {
+router.get('/add', isLoggedIn, (req, res) => {
     res.render('addLesson')
 })
 
-router.post('/add', async (req, res) => {
-    let question = req.body.phrase
+router.post('/add', isLoggedIn, async (req, res) => {
+    let input = req.body
+
+    let splitBisaya =  input.phrase.split(" ")
+    let splitEnglish = input.translation.split(" ")
+    let question = {
+        phrase: input.phrase,
+        translation: input.translation,
+        bisayaWords: splitBisaya,
+        englishWords: splitEnglish,
+        lesson: req.body.lesson
+    }
+
+    
     let add = await Question.create(question, (err, newQuestion) => {
         if(err){
             console.log(err)
@@ -22,7 +34,7 @@ router.post('/add', async (req, res) => {
         console.log('You entered this to the database', newQuestion)
     })
     console.log('Entered lesson to the database', add)
-    res.send(`You entered something`)
+    res.redirect('add')
 })
 
 router.get('/:lesson', async (req, res) => {
@@ -46,19 +58,5 @@ router.get('/get/:lesson', async (req, res) => {
         }
         
     })
-})
-
-
-
-router.post('/add', async (req, res) => {
-    let question = req.body.phrase
-    await Question.create(question, (err, newQuestion) => {
-        if(err){
-            console.log(err)
-        }
-        console.log('You entered this to the database', newQuestion)
-    })
-
-    res.send('You entered something')
 })
 module.exports = router

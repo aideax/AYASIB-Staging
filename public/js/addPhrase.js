@@ -21,18 +21,18 @@ let splitWords = (bPhrase, ePhrase, lesson) => {
 let btnAdd = document.querySelector('#add')
 
 
-btnAdd.addEventListener('click', () => {
-    console.log(splitWords(bInput.value, eInput.value, lesson.value))
-    postPhrases(splitWords(bInput.value, eInput.value, lesson.value))
-    setTimeout(() => {
-        bInput.value = ''
-        eInput.value = ''
-    }, 3000);
-})
+// btnAdd.addEventListener('click', () => {
+//     console.log(splitWords(bInput.value, eInput.value, lesson.value))
+//     postPhrases(splitWords(bInput.value, eInput.value, lesson.value))
+//     setTimeout(() => {
+//         bInput.value = ''
+//         eInput.value = ''
+//     }, 3000);
+// })
 
 
-let postPhrases = async(phrase) => {
+// let postPhrases = async(phrase) => {
 
-    const res = await axios.post(`http://localhost:5500/lessons/add`, {phrase: phrase})
-    console.log('Successfully added', res)
-}
+//     const res = await axios.post(`http://localhost:5500/lessons/add`, {phrase: phrase})
+//     console.log('Successfully added', res)
+// }
