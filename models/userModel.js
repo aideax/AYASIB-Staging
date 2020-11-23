@@ -7,7 +7,11 @@ let userSchema = mongoose.Schema({
         required: true,
         unique: true
     },
-    
+    knownWords: [{type: String}],
+    knownPhrases: [{
+        phrase:{type: String},
+        translation:{type: String}
+    }],
     accountType: String
     
     //comments

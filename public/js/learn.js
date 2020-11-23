@@ -1,3 +1,4 @@
+
 let lesson = document.querySelector('#lesson').textContent
 let getRandom = (size) => {
     let rand = Math.floor((Math.random() * size) + 1)
@@ -10,9 +11,10 @@ let getQuestions = async () => {
     if (res.data === 'denied') {
         location.href = `http://localhost:5500/lessons`
     } else {
+        console.log('Axios success')
         return res.data
     }
-
+    
 }
 
 getQuestions()
@@ -20,7 +22,7 @@ getQuestions()
 let showQuestions = async () => {
     let data = await getQuestions()
     let allPhrases = []
-
+    let allWords = []
 
     const getAllPhrases = () => {
         data.forEach(el => {
@@ -29,12 +31,18 @@ let showQuestions = async () => {
                 english: el.translation
             }
             allPhrases.push(phrase)
-        });
 
+            el.bisayaWords.forEach(element => {
+                if(!allWords.includes(element)){
+                    allWords.push(element)
+                }
+            });
+        });
     }
 
+    console.log('All words', allWords)
     getAllPhrases()
-
+    console.log('Allphrases', allPhrases)
     const getNewQuestion = () => {
         let question = {
             questionFormat: '',
@@ -121,7 +129,9 @@ let showQuestions = async () => {
         questions.push(getNewQuestion())
     }
 
+    
     let DOM = {
+        progress: document.querySelector('.progress-bar'),
         choices: document.getElementById('choices'),
         question: document.querySelector('.question'),
         btnConfirm: document.querySelector('.confirm'),
@@ -137,6 +147,7 @@ let showQuestions = async () => {
     let currentQuestion;
     let answer;
     let buttonPressed;
+    let score = 0
     function init() {
         clear();
     }
@@ -148,6 +159,7 @@ let showQuestions = async () => {
 
     function nextQuestion() {
         clear();
+        DOM.choices.classList.remove('hide')
         DOM.btnStart.classList.add('hide')
         DOM.btnNext.classList.add('hide')
         DOM.btnConfirm.classList.remove('hide')
@@ -164,6 +176,12 @@ let showQuestions = async () => {
         });
     }
 
+    function updateProgress() {
+        score ++
+        DOM.progress.setAttribute('aria-valuenow', (score*10));
+        DOM.progress.setAttribute('style',`width: ${score*10}%`)
+    }
+
     function setAnswer(e) {
         buttonPressed = e.target;
         answer = buttonPressed.textContent;
@@ -173,16 +191,27 @@ let showQuestions = async () => {
         });
     }
 
-    function checkAnswer(e) {
+    async function checkAnswer(e) {
+       
         if (answer === currentQuestion.correctItem) {
-            buttonPressed.classList.remove('neutral')
-            buttonPressed.classList.add('correct')
-            DOM.btnConfirm.classList.add('hide')
-            DOM.btnNext.classList.remove('hide')
+            if(score !== 1){
+                updateProgress()
+                buttonPressed.classList.remove('neutral')
+                buttonPressed.classList.add('correct')
+                DOM.btnConfirm.classList.add('hide')
+                DOM.btnNext.classList.remove('hide')
+            } else{
+                const res = await axios.post(`http://localhost:5500/lessons/${lesson}/done`, {words: allWords, phrases: allPhrases})
+                console.log('Successfully added', res)
+            }
         } else {
             buttonPressed.classList.remove('neutral')
             buttonPressed.classList.add('wrong')
         }
+        
+       
+
+        
     }
 
 
