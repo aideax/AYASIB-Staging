@@ -37,6 +37,13 @@ router.post('/add', isLoggedIn, async (req, res) => {
     res.redirect('add')
 })
 
+
+router.get('/asd', async (req, res) => {
+    const questions = await Question.find({})
+    console.log(questions)
+    res.json(questions)
+})
+
 router.get('/:lesson', async (req, res) => {
     let lesson = req.params.lesson
     res.render('learn',{lesson: lesson})
@@ -59,4 +66,7 @@ router.get('/get/:lesson', async (req, res) => {
         
     })
 })
+
+
+
 module.exports = router

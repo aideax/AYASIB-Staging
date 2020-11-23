@@ -6,7 +6,9 @@ let userSchema = mongoose.Schema({
         type: String,
         required: true,
         unique: true
-    }
+    },
+    
+    accountType: String
     
     //comments
     //upvotes

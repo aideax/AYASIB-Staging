@@ -6,7 +6,7 @@ let getRandom = (size) => {
 //GET THE SET OF QUESTIONS BASED ON THE ${LESSON} PROVIDED AS PARAMETER
 let getQuestions = async () => {
 
-    const res = await axios.get(`http://localhost:5500/lessons/get/${lesson}`)
+    const res = await axios.get(`http://localhost:5500/lessons/asd`)
     if (res.data === 'denied') {
         location.href = `http://localhost:5500/lessons`
     } else {
