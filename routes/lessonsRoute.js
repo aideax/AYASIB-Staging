@@ -17,6 +17,7 @@ router.get('/add', isLoggedIn, isAdmin, (req, res) => {
 })
 
 router.post('/add', isLoggedIn, isAdmin, async (req, res) => {
+    
     let input = req.body
     let splitBisaya =  input.phrase.split(" ")
     let splitEnglish = input.translation.split(" ")
@@ -40,10 +41,27 @@ router.post('/add', isLoggedIn, isAdmin, async (req, res) => {
 })
 
 
-router.get('/asd', async (req, res) => {
-    const questions = await Question.find({})
-    res.json(questions)
+router.get('/get/asd', async (req, res) => {
+    const question = await Question.find({})
+    res.json(question)
 })
+
+
+router.get('/get/:lesson', async (req, res) => {
+    console.log('getting lesson')
+    let lesson = req.params.lesson
+    const questions = await Question.find({lesson: lesson})
+    console.log("questions length", questions.length)
+    if(questions.length < 1){
+        console.log('not sending json')
+        res.json('denied')
+    } else{
+        console.log('sending json')
+        res.json(questions)
+    }
+})
+
+
 
 router.get('/:lesson', async (req, res) => {
     let lesson = req.params.lesson
@@ -51,25 +69,10 @@ router.get('/:lesson', async (req, res) => {
     
 })
 
-router.get('/:lesson/done', async (req, res) => {
+router.get('/:lesson/done', isLoggedIn, async (req, res) => {
     let lesson = req.params.lesson
     res.render('done',{lesson: lesson})
     
-})
-
-router.get('/get/:lesson', async (req, res) => {
-    let lesson = req.params.lesson
-    await Question.find({"lesson": `${lesson}`}, (err, newLesson) => {
-        if(err){
-            console.log(err)
-        }
-        if(newLesson < 1){
-            res.send('denied')
-        } else{
-            res.send(newLesson)
-        }
-        
-    })
 })
 
 router.post('/:lesson/done', isLoggedIn, async (req, res) => {

@@ -7,17 +7,16 @@ let getRandom = (size) => {
 //GET THE SET OF QUESTIONS BASED ON THE ${LESSON} PROVIDED AS PARAMETER
 let getQuestions = async () => {
 
-    const res = await axios.get(`http://localhost:5500/lessons/asd`)
+    const res = await axios.get(`http://localhost:5500/lessons/get/asd`)
     if (res.data === 'denied') {
         location.href = `http://localhost:5500/lessons`
     } else {
         console.log('Axios success')
+        console.log(res)
         return res.data
     }
     
 }
-
-getQuestions()
 
 let showQuestions = async () => {
     let data = await getQuestions()
@@ -28,7 +27,8 @@ let showQuestions = async () => {
         data.forEach(el => {
             let phrase = {
                 bisaya: el.phrase,
-                english: el.translation
+                english: el.translation,
+                id: el._id
             }
             allPhrases.push(phrase)
 
@@ -36,7 +36,7 @@ let showQuestions = async () => {
                 if(!allWords.includes(element)){
                     allWords.push(element)
                 }
-            });
+            })
         });
     }
 
@@ -48,9 +48,14 @@ let showQuestions = async () => {
             questionFormat: '',
             questionItem: '',
             correctItem: '',
-            choices: []
+            choices: [],
+            id: ''
         }
         let questionItemIndex = getRandom(allPhrases.length) - 1
+
+        const getID = () => {
+            question.id = allPhrases[questionItemIndex].id
+        }
 
         const getFormat = () => {
             let randFormat = getRandom(2)
@@ -106,6 +111,7 @@ let showQuestions = async () => {
 
         const buildQuestion = () => {
             let lang = getRandom(2)
+            getID()
             getFormat()
             getQuestionAndCorrectItem(lang)
             getChoices(lang)
@@ -128,7 +134,7 @@ let showQuestions = async () => {
     for (let i = 0; i < 10; i++) {
         questions.push(getNewQuestion())
     }
-
+    console.log(questions)
     
     let DOM = {
         progress: document.querySelector('.progress-bar'),
@@ -137,6 +143,11 @@ let showQuestions = async () => {
         btnConfirm: document.querySelector('.confirm'),
         btnNext: document.querySelector('.next'),
         btnStart: document.querySelector('.start'),
+        btnUpvote: document.querySelector('.upvote'),
+        btnDownvote: document.querySelector('.downvote'),
+        btnComment: document.querySelector('.btnComment'),
+        commentIn: document.querySelector('.comment-in'),
+        usernameText: document.querySelector('.comment-username')
     }
 
 
@@ -194,7 +205,7 @@ let showQuestions = async () => {
     async function checkAnswer(e) {
        
         if (answer === currentQuestion.correctItem) {
-            if(score !== 1){
+            if(score !== 10){
                 updateProgress()
                 buttonPressed.classList.remove('neutral')
                 buttonPressed.classList.add('correct')
@@ -210,14 +221,35 @@ let showQuestions = async () => {
         }
         
        
-
+        
         
     }
 
 
+    
+
+    DOM.btnComment.addEventListener('click', postComment)
 
 
-
+    async function postComment () {
+        console.log('Submit Button presed')
+        let id = currentQuestion.id
+        console.log("id", id)
+        let content = DOM.commentIn.value
+        let comment = {}
+        if(content){
+            comment.comment = content
+            try{
+                const res = await axios.post(`http://localhost:5500/comments/${id}/add`, {comment: content})
+                console.log('Successfully added', res)
+            } catch(e){
+                console.log(e.message)
+            }
+        } else{
+            
+        }
+        
+    }
 
 
 
@@ -234,3 +266,7 @@ let showQuestions = async () => {
 }
 
 showQuestions()
+
+
+
+

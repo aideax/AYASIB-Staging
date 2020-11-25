@@ -59,8 +59,12 @@ app.use((req, res, next) => {
 
 const lessonsRoute = require('./routes/lessonsRoute')
 const usersRoute = require('./routes/usersRoute')
+const commentsRoute = require('./routes/commentsRoute')
+const ratingsRoute = require('./routes/ratingsRoute')
 app.use('/lessons', lessonsRoute)
 app.use('/user', usersRoute)
+app.use('/comments', commentsRoute)
+app.use('/ratings', ratingsRoute)
 
 
 app.get('/logout', (req, res) => {

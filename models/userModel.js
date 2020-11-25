@@ -12,11 +12,21 @@ let userSchema = mongoose.Schema({
         phrase:{type: String},
         translation:{type: String}
     }],
-    accountType: String
+    accountType: String,
+    comments: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Comment'
+        }
+    ],
+    ratings: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Rating'
+        }
+    ]
+        
     
-    //comments
-    //upvotes
-    //downvotes
     //contribution
 });
 

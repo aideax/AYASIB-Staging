@@ -4,10 +4,11 @@
     box-sizing: border-box;
 }
 
-.btn:focus,.btn:active {
+.btn:focus,
+.btn:active {
     outline: none !important;
     box-shadow: none;
- }
+}
 
 .quiz {
     box-sizing: border-box;
@@ -16,39 +17,39 @@
     padding: 0;
     margin: 0;
     display: flex;
-    width: 100vw;
-    height: 100vh;
+    height: 70vh;
     justify-content: center;
     align-items: center;
 }
 
-.container-wrong{
+.container-wrong {
     background-color: rgb(212, 176, 188);
 }
 
-.container-correct{
+.container-correct {
     background-color: rgb(192, 228, 192);
 }
-.wrong{
+
+.wrong {
     background-color: palevioletred;
-    
+
 }
 
-.correct{
+.correct {
     background-color: lightgreen;
 }
 
-.neutral{
+.neutral {
     background-color: rgb(169, 189, 228);
 }
 
 
-.choices{
+.choices {
     display: grid;
     grid-template-columns: repeat(2, auto);
 }
 
-.choice{
+.choice {
     box-sizing: border-box;
     padding: 10px 10px;
     border: 3px solid transparent;
@@ -61,36 +62,74 @@
 
 }
 
-.choice:hover{
+.choice:hover {
     box-sizing: border-box;
     border: 3px solid rgb(19, 3, 163);
-} 
+}
 
-.chosen{
+.chosen {
     border: 3px solid rgb(19, 3, 163);
 }
 
 
 
 
-.question{
+.question {
     margin: 15px 0;
     font-size: 2.5em;
 }
 
-
-
-.hide{
+.hide {
     display: none;
 }
 
-.controls{
+.controls {
     margin: 15px 0;
 }
 
-.control-btn{
+.control-btn {
     font-size: 1.5rem;
     padding: 10px;
     border: 1px solid black;
 }
 
+.wrapper {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    border: 1px solid black;
+    display: inline-grid;
+    grid-template-columns: auto auto;
+}
+
+.box1 {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 3;
+
+}
+
+.box2 {
+    text-align: right;
+    vertical-align: middle;
+}
+
+.box3 {
+    text-align: right;
+    vertical-align: middle;
+}
+
+.upvote, .downvote {
+    border: none;
+    background: none;
+}
+
+.upvote::hover, .downvote::hover{
+    fill: black;
+}
+
+@media only screen and (max-width: 500px) {
+    .quiz {
+        font-size: 1.5vmax;
+    }
+}
