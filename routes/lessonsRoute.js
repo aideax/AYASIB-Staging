@@ -34,9 +34,7 @@ router.post('/add', isLoggedIn, isAdmin, async (req, res) => {
         if(err){
             console.log(err)
         }
-        console.log('You entered this to the database', newQuestion)
     })
-    console.log('Entered lesson to the database', add)
     res.redirect('add')
 })
 

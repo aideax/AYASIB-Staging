@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="/lessons">AYASIB</a>
     <% if (currentUser) { %>
-      <div class="navbar-brand">Learning with <strong><%= currentUser.username.charAt(0).toUpperCase()+currentUser.username.slice(1) %></strong></div>
+      <div class="navbar-brand">Learning with <strong id="username"><%= currentUser.username.charAt(0).toUpperCase()+currentUser.username.slice(1) %></strong></div>
     <% } %>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>

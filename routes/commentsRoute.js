@@ -10,28 +10,27 @@ const {isLoggedIn} = require('../middleware')
 
 
 router.get('/:question', async (req, res) => {
-    const question = await Question.find({_id: req.params.question}).populate('comments')
-    console.log(question)
-    res.json(question)
+    const question = await Question.findById(req.params.question).populate('comments')
+    res.json(question.comments)
+
 })
 
 
 
 router.post('/:question/add', isLoggedIn, async(req, res) => {
-    const comment = new Comment({
-        comment: req.body.comment
-    })
-
-    const question = await Question.findById(req.params.question)
+    
     const user = await User.findById(req.user.id)
-    comment.user = user
+    const comment = new Comment({
+        comment: req.body.comment,
+        user: user,
+        username: user.username
+    })
+    const question = await Question.findById(req.params.question)
     user.comments.push(comment)
     question.comments.push(comment)
     comment.save()
     question.save()
     user.save()
-    console.log(question)
-    console.log("you are submitting a comment", req.body.comment)
     res.send(question)
     
 })

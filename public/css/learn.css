@@ -4,6 +4,12 @@
     box-sizing: border-box;
 }
 
+
+html {
+    scroll-behavior: smooth;
+}
+
+
 .btn:focus,
 .btn:active {
     outline: none !important;
@@ -72,7 +78,21 @@
 }
 
 
+.comment-container{
+    padding-bottom: 8vh;
+    overflow: hidden;
+    transition: all .5s ease-in-out;
+    line-height: 0;
+    padding: 0 1em;
+    color: transparent;
+}
 
+.comment-container:target{
+    line-height: 1.5;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  color: black;
+}
 
 .question {
     margin: 15px 0;
@@ -96,7 +116,6 @@
 .wrapper {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
-    border: 1px solid black;
     display: inline-grid;
     grid-template-columns: auto auto;
 }
@@ -124,9 +143,14 @@
     background: none;
 }
 
-.upvote::hover, .downvote::hover{
-    fill: black;
+.upvote:hover{
+    color: green;
 }
+
+.downvote:hover{
+    color: red;
+}
+
 
 @media only screen and (max-width: 500px) {
     .quiz {

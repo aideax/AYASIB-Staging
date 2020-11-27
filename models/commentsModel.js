@@ -11,7 +11,7 @@ let commentSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Reply'
     },
-    raters:{
+    ratings:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Rating'
     },
@@ -19,6 +19,8 @@ let commentSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
+    username: String,
+    userID: String,
     rating: Number
     
 })
