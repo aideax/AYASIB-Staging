@@ -247,9 +247,12 @@ let showQuestions = async () => {
                         comment: content
                     })
                     console.log('Successfully added', res)
-                    this.loadComments()
+                    DOM.commentIn.value = ''
+                    window.alert("Comment Added!")
+                    loadComments()
+            
                 } catch (e) {
-                    console.log(e.message)
+                    window.alert(`There has been an error! ${e.message}`)
                 }
             }
         } else{
@@ -257,8 +260,7 @@ let showQuestions = async () => {
                 window.location.href = "http://localhost:5500/user/login"
             }
         }
-        
-
+       
     }
 
     DOM.btnComment.addEventListener('click', postComment)
