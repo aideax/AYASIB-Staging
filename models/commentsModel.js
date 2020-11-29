@@ -7,18 +7,24 @@ let commentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    replies: {
+    replies: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Reply'
-    },
-    ratings:{
+        ref: 'Comment'
+    }],
+    ratings:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Rating'
-    },
+    }],
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
+    raters:[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        }
+    ],
     username: String,
     userID: String,
     rating: Number

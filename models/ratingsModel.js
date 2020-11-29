@@ -4,7 +4,7 @@ const { deserializeUser } = require('passport');
 let ratingSchema = new mongoose.Schema({
     rating: {
         type: Number,
-        required: true
+        default: 0
     },
     comment: {
         type: mongoose.Schema.Types.ObjectId,
@@ -13,7 +13,10 @@ let ratingSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    }
+    },
+    commentID: String,
+    userID: String
+
     
 })
 

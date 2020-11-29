@@ -24,10 +24,13 @@ let userSchema = mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Rating'
         }
+    ],
+    contributions:[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Contribution'
+        }
     ]
-        
-    
-    //contribution
 });
 
 userSchema.plugin(passportLocalMongoose);

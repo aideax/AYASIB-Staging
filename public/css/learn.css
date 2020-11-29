@@ -9,13 +9,18 @@ html {
     scroll-behavior: smooth;
 }
 
-
+i{
+    pointer-events: none;
+}
 .btn:focus,
 .btn:active {
     outline: none !important;
     box-shadow: none;
 }
 
+.jumbotron{
+    margin-top: 50px;
+}
 .quiz {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -120,6 +125,10 @@ html {
     grid-template-columns: auto auto;
 }
 
+
+
+
+
 .box1 {
     grid-column-start: 1;
     grid-column-end: 2;
@@ -149,6 +158,11 @@ html {
 
 .downvote:hover{
     color: red;
+}
+
+.vote:focus{
+    border: none;
+    outline: none;
 }
 
 

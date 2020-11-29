@@ -1,0 +1,17 @@
+.hide{
+    display: none;
+}
+
+
+.jumbotron{
+    margin-top: 50px;
+}
+
+.accept{
+    float: right;
+}
+
+
+.review-main{
+    margin-bottom: 15px;
+}

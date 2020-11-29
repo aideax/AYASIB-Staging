@@ -28,7 +28,8 @@ app.use(express.json())
 mongoose.connect(process.env.DB_CONNECTION, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
-    useCreateIndex: true
+    useCreateIndex: true,
+    useFindAndModify: false
 }).then(() => {
     console.log('Connected to Mongo Atlas');
 }).catch(err => {
@@ -61,11 +62,12 @@ const lessonsRoute = require('./routes/lessonsRoute')
 const usersRoute = require('./routes/usersRoute')
 const commentsRoute = require('./routes/commentsRoute')
 const ratingsRoute = require('./routes/ratingsRoute')
+const contributionsRoute = require('./routes/contributionsRoute')
 app.use('/lessons', lessonsRoute)
 app.use('/user', usersRoute)
 app.use('/comments', commentsRoute)
 app.use('/ratings', ratingsRoute)
-
+app.use('/contribute', contributionsRoute)
 
 app.get('/logout', (req, res) => {
     req.logout()
