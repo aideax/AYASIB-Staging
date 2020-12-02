@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Question = require('../models/questionModel')
 const User = require('../models/userModel')
+const Word = require('../models/wordModel')
 const {isLoggedIn} = require('../middleware')
 const {isAdmin} = require('../middleware')
 const { find, findByIdAndUpdate } = require('../models/questionModel')
@@ -58,10 +59,8 @@ router.get('/get/:lesson', async (req, res) => {
         res.json(questions)
     }
 })
-router.get('/dictionary', async (req, res) => {
-    res.render('dictionary')
-    
-})
+
+
 
 
 router.get('/:lesson', async (req, res) => {
