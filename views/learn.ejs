@@ -69,12 +69,63 @@
     </div>
 
 
+    <!-- Modal -->
+    <div class="modal fade" id="checkLoginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Registered User Feature</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Commenting and Rating can only be done by logged in users. <br>
+                    Do you want to log in?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary modalLater" data-dismiss="modal">Maybe Later</button>
+                    <button type="button" class="btn btn-primary modalConfirm">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Registered User Feature</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    
+                    <div class="form-group">
+                        <label for="username">Email address</label>
+                        <input type="text" class="form-control" id="modalUsername" placeholder="Username" name="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password"
+                            placeholder="Password" name="modalPassword">
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="modalBtnLogin">Login</button>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary modalLater" data-dismiss="modal">Maybe Later</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
     <h1 id='lesson' class="hide"><%= lesson %></h1>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="/js/learn.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
     </script>
@@ -84,6 +135,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
     </script>
+    <script src="/js/learn.js"></script>
 </body>
 
 </html>

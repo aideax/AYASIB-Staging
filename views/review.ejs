@@ -19,28 +19,60 @@
     </div>
   </div>
   <% if (contributions.length >= 1) { %>
-    <% contributions.forEach(element => { %>
-      <div class="container review-container">
-        <div class="card review-main" id="<%= element._id %>">
-          <div class="card-body">
-            <h5 class="card-title review-user" id=""><%= element.contributor.username %></h5>
-            <label class="bisaya-label"><strong>Bisaya Phrase</strong></label>
-            <p class="bisayaPhrase"><%= element.bisayaPhrase %></p>
-            <label class="english-label"><strong>English Phrase</strong></label>
-            <p class="englishPhrase"><%= element.englishPhrase %></p>
-            <label class="lesson-label"><strong>Use-Case</strong></label>
-            <p class="lesson"><%= element.lesson %></p>
-            <button type="button" class="btn btn-warning edit">Edit</button>
-            <button type="button" class="btn btn-success accept ">Accept Submission</button>
+  <% contributions.forEach(element => { %>
+  <div class="container review-container">
+    <div class="card review-main" id="<%= element._id %>">
+      <div class="card-body">
+        <h5 class="card-title review-user" id=""><%= element.contributor.username %></h5>
+        <label class="bisaya-label"><strong>Bisaya Phrase</strong></label>
+        <p class="bisayaPhrase"><%= element.bisayaPhrase %></p>
+        <label class="english-label"><strong>English Phrase</strong></label>
+        <p class="englishPhrase"><%= element.englishPhrase %></p>
+        <label class="lesson-label"><strong>Use-Case</strong></label>
+        <p class="lesson"><%= element.lesson %></p>
+        <small>Date submitted: <%= element.dateSubmitted.toLocaleDateString() %></small><br>
+        <button type="button" class="btn btn-warning edit">Edit</button>
+        <button type="button" class="btn btn-success accept ">Accept Submission</button>
+      </div>
+    </div>
+    <!-- <div class="card review-main" id="<%= element._id %>">
+      <div class="card-body">
+        <h5 class="card-title review-user" id=""><%= element.contributor.username %></h5>
+        <form>
+          <div class="form-group">
+            <label for="bisayaPhrase">Bisaya Phrase</label>
+            <input type="text" class="form-control" id="bisayaPhrase" name="bisayaPhrase"
+              value="<%= element.bisayaPhrase %>">
           </div>
-        </div>
+          <div class="form-group">
+            <label for="englishPhrase">English Phrase</label>
+            <input type="text" class="form-control" id="englishPhrase" name="englishPhrase"
+              value="<%= element.englishPhrase %>">
+          </div>
+          <div class="form-group">
+            <label for="lesson">Select Lesson</label>
+            <select class="form-control" id="lesson" name="lesson">
+              <option>Greetings</option>
+              <option>Questions</option>
+              <option>Family</option>
+              <option>Travelling</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-success accept ">Accept Submission</button>
+        </form> -->
+        
+      </div>
+    </div>
+
     <% }); %>
-    
-  <% } else { %>
+
+    <% } else { %>
     <div class="alert alert-success" role="alert">
       No more submissions to verify!
     </div>
-  <% } %> 
+    <% } %>
+
+
   </div>
 
 

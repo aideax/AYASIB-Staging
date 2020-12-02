@@ -58,7 +58,10 @@ router.get('/get/:lesson', async (req, res) => {
         res.json(questions)
     }
 })
-
+router.get('/dictionary', async (req, res) => {
+    res.render('dictionary')
+    
+})
 
 
 router.get('/:lesson', async (req, res) => {
@@ -73,14 +76,15 @@ router.get('/:lesson/done', isLoggedIn, async (req, res) => {
     
 })
 
-router.post('/:lesson/done', isLoggedIn, async (req, res) => {
+router.post('/:lesson/done', async (req, res) => {
     let input = req.body
-    let removedWords = []
+    console.log(input)
     const gotUser = await User.findById(req.user.id)
+
     for(let x = 0; x < gotUser.knownWords.length; x++){
-        for(let i=0; i<gotUser.knownWords.length; i++) {
+        for(let i=0; i<input.words.length; i++) {
             if(input.words[i]===gotUser.knownWords[x]){
-                removedWords.push(input.words[i])
+                console.log('You are splicing', input.words[i])
                 input.words.splice(i, 1); 
             } 
         }
@@ -90,18 +94,18 @@ router.post('/:lesson/done', isLoggedIn, async (req, res) => {
     })
 
     for(let x = 0; x < gotUser.knownPhrases.length; x++){
-        for (let i = 0; i < input.phrases; i++) {
-            if(input.phrase[i].bisaya === gotUser.knownPhrases.phrase){
-                input.phrase.splice(i, 1)
-            }
+        for(let i=0; i<input.phrases.length; i++) {
+            if(input.phrases[i].bisaya===gotUser.knownPhrases[x].phrase){
+                console.log('You are splicing', input.phrases[i])
+                input.phrases.splice(i, 1); 
+            } 
         }
     }
-
-    input.phrases.forEach(element => {
-        gotUser.knownPhrases.push({phrase: `${element.bisaya}`, translation:`${element.english}`})
+    input.words.forEach(element => {
+        gotUser.knownWords.push(element)
     })
     gotUser.save()
-    res.send('checking user')
+    res.status(202).send()
 })
 
 module.exports = router

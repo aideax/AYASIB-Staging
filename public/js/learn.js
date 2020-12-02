@@ -1,3 +1,4 @@
+
 let lesson = document.querySelector('#lesson').textContent
 let getRandom = (size) => {
     let rand = Math.floor((Math.random() * size) + 1)
@@ -137,7 +138,10 @@ let showQuestions = async () => {
         commentContainer: document.querySelector('.comment-container'),
         commentMain: document.querySelector('.comment-main'),
         btnLoadComment: document.querySelector('.btnLoadComment'),
-        commentSection: document.querySelector('.comments-section')
+        commentSection: document.querySelector('.comments-section'),
+        modalConfirm: document.querySelector('.modalConfirm'),
+        modalLater: document.querySelector('.modalLater'),
+        modalBtnLogin: document.querySelector('.modalBtnLogin')
     }
 
 
@@ -159,7 +163,6 @@ let showQuestions = async () => {
     DOM.btnLoadComment.addEventListener('click', showCommentsSection)
     DOM.commentIn.addEventListener("focus", checkLogIn)
     DOM.btnComment.addEventListener('click', postComment)
-
 
     function nextQuestion() {
         clear();
@@ -195,13 +198,17 @@ let showQuestions = async () => {
 
     async function checkAnswer(e) {
         if (answer === currentQuestion.correctItem) {
-            if (score !== 10) {
+            if (score !== 100) {
                 updateProgress()
                 buttonPressed.classList.remove('neutral')
                 buttonPressed.classList.add('correct')
                 DOM.btnConfirm.classList.add('hide')
                 DOM.btnNext.classList.remove('hide')
             } else {
+                checkLogIn()
+                console.log('WORDS', allWords)
+                console.log('PHRASES', allPhrases)
+
                 const res = await axios.post(`http://localhost:5500/lessons/${lesson}/done`, {
                     words: allWords,
                     phrases: allPhrases
@@ -233,7 +240,6 @@ let showQuestions = async () => {
                     })
                     console.log('Successfully added', res)
                     DOM.commentIn.value = ''
-                    window.alert("Comment Added!")
                     loadComments()
 
                 } catch (e) {
@@ -250,6 +256,14 @@ let showQuestions = async () => {
 
     async function loadComments() {
         clearComments()
+        DOM.btnComment.classList.add('hide')
+        DOM.commentIn.addEventListener('input', () => {
+            if (DOM.commentIn.value !== '') {
+                DOM.btnComment.classList.remove('hide')
+            } else {
+                DOM.btnComment.classList.add('hide')
+            }
+        })
         let questionid = currentQuestion.id
         let comments = []
         try {
@@ -303,6 +317,9 @@ let showQuestions = async () => {
 
     }
 
+
+
+
     function updateProgress() {
         score++
         DOM.progress.setAttribute('aria-valuenow', (score * 10));
@@ -317,10 +334,10 @@ let showQuestions = async () => {
         checkLogIn()
         console.log(e.target)
         if (e.target.classList.contains('upvote')) {
-            if(e.target.classList.contains('voted')){
+            if (e.target.classList.contains('voted')) {
                 console.log('downvoting')
                 downvoteComment()
-            } else{
+            } else {
                 console.log('upvoting')
                 upvoteComment(e.target)
             }
@@ -339,7 +356,7 @@ let showQuestions = async () => {
         console.log('After click', target)
         const res = await axios.post(`http://localhost:5500/ratings/upvote/${id}`)
         console.log(res)
-        
+
     }
     async function downvoteComment() {
         console.log('downvoting')
@@ -362,16 +379,23 @@ let showQuestions = async () => {
 
 
 
-
+    async function login() {
+        const res = await axios.post(`http://localhost:5500/users/login/quick`)
+    }
 
 
     function checkLogIn() {
         if (!DOM.username) {
-            if (window.confirm('This is a logged in user feature. Log in now?')) {
-                window.location.href = "http://localhost:5500/user/login"
-            } else {
-                DOM.btnComment.disabled = true
-            }
+            $('#checkLoginModal').modal('show')
+            DOM.modalLogin.addEventListener('click', () => {
+                
+                $('#checkLoginModal').modal('hide')
+                $('#loginModal').modal('show')
+                DOM.modalBtnLogin.addEventListener('click', login)
+            })
+            DOM.modalLater.addEventListener('click', () => {
+                $('#checkLoginModal').modal('hide')
+            })
         }
     }
 

@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
+const flash = require('connect-flash')
 const { allowedNodeEnvironmentFlags, nextTick } = require('process')
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
@@ -19,8 +20,7 @@ app.set('view engine', 'ejs')
 app.use(express.static('public'))
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())
-
-
+app.use(flash())
 
 
 
@@ -51,6 +51,7 @@ passport.deserializeUser(User.deserializeUser())
 
 app.use((req, res, next) => {
     res.locals.currentUser = req.user
+    res.locals.messages = req.flash(flash)
     next()
 })
 

@@ -9,11 +9,20 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <form class="ml-auto form-inline my-2 my-lg-0">
         <% if(!currentUser) { %>
+          <a class="nav-item nav-link" href="/lessons/dictionary">Dictionary</a>
+          <a class="nav-item nav-link" aria-disabled="true">|</a>
           <a class="nav-item nav-link" href="/lessons">Learn</a>
           <a class="nav-item nav-link" href="/user/register">Register</a>
           <a class="nav-item nav-link" href="/user/login">Login</a>
         <% } else {%>  
+          <a class="nav-item nav-link" href="/lessons/dictionary">Dictionary</a>
+          <% if (currentUser.accountType === 'admin') { %>
+            <a class="nav-item nav-link" href="/contribute/review">Review Submissions</a>
+            <a class="nav-item nav-link" href="/dictionary/add">Add to Dictionary</a>
+          <% } else { %>
           <a class="nav-item nav-link" href="/lessons">Learn</a>
+          <% } %> 
+          <a class="nav-item nav-link" aria-disabled="true">|</a>
           <a class="nav-item nav-link" href="/profile">Profile</a>
           <a class="nav-item nav-link" href="/logout">Logout</a>
         <% } %> 
