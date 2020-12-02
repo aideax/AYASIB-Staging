@@ -40,13 +40,15 @@ router.get('/login', async (req, res) => {
 })
 
 router.post('/login', passport.authenticate('local', {
-        failureRedirect: '/login',
+        failureFlash: true,
+        failureRedirect: '/user/login',
         failureMessage: 'Please enter valid username or password'
     }),
     async (req, res) => {
-        req.flash('loginError', 'Username and password does not match')
+        req.flash('success', `Welcome back to ayasib!`)
         res.redirect('../')
     })
+
 
 router.post('/login/quick', passport.authenticate('local', {
         failureFlash: true,
@@ -56,7 +58,6 @@ router.post('/login/quick', passport.authenticate('local', {
     async (req, res) => {
         res.status(200)
     })
-
 
 
 module.exports = router

@@ -20,7 +20,7 @@ app.set('view engine', 'ejs')
 app.use(express.static('public'))
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())
-app.use(flash())
+
 
 
 
@@ -40,7 +40,11 @@ mongoose.connect(process.env.DB_CONNECTION, {
 app.use(require('express-session')({
     secret: 'This is the secret',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie:{
+        expires: Date.now()+ 1000*60*60*24*7,
+        maxAge: 1000*60*60*24*7
+    }
 }))
 
 app.use(passport.initialize())
@@ -49,11 +53,14 @@ passport.use(new LocalStrategy(User.authenticate()))
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
+app.use(flash())
 app.use((req, res, next) => {
     res.locals.currentUser = req.user
-    res.locals.messages = req.flash(flash)
+    res.locals.success = req.flash('success')
+    res.locals.error = req.flash('error')
     next()
 })
+
 
 
 
@@ -77,6 +84,7 @@ app.get('/logout', (req, res) => {
 })
 
 app.get('/', (req, res) => {
+
     res.render('allLessons')
 })
 

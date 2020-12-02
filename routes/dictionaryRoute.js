@@ -26,12 +26,13 @@ router.post('/add', async (req, res) => {
         englishMeaning: req.body.englishMeaning,
         partOfSpeech: req.body.partOfSpeech
     }
-
-    let add = await Word.create(word, (err, newWord) => {
-        if(err){
-            console.log(err)
-        }
-    })
+    try{
+        let add = await Word.create(word)
+        req.flash('success', `Added ${add.bisayaWord} to the dictionary`)
+    } catch(e){
+        req.flash('error', e.message)
+    }
+    
     res.redirect('add')
 })
 

@@ -29,6 +29,7 @@
         </div>
     </div>
     <div class="container">
+        <%- include("partials/flash") %> 
         <form action="/dictionary/add" method="POST">
             <div class="form-group">
                 <label for="bisayaWord">Bisaya Word</label>
@@ -50,7 +51,7 @@
                 <label for="partOfSpeech">Part of Speech</label>
                 <input type="text" class="form-control" id="partOfSpeech" name="partOfSpeech" required>
             </div>
-            <input type="submit" class="btnSubmit">
+            <input type="submit" class="btnSubmit btn btn-primary">
         </form>
         
     </div>
