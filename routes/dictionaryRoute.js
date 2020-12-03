@@ -3,14 +3,25 @@ const router = express.Router()
 const Question = require('../models/questionModel')
 const User = require('../models/userModel')
 const Word = require('../models/wordModel')
-const {isLoggedIn} = require('../middleware')
-const {isAdmin} = require('../middleware')
-const { find, findByIdAndUpdate } = require('../models/questionModel')
+const {
+    isLoggedIn
+} = require('../middleware')
+const {
+    isAdmin
+} = require('../middleware')
+const {
+    find,
+    findByIdAndUpdate
+} = require('../models/questionModel')
+const {
+    json
+} = require('express')
+const e = require('express')
 
 
 router.get('/', async (req, res) => {
     res.render('dictionary')
-    
+
 })
 
 router.get('/add', async (req, res) => {
@@ -26,15 +37,59 @@ router.post('/add', async (req, res) => {
         englishMeaning: req.body.englishMeaning,
         partOfSpeech: req.body.partOfSpeech
     }
-    try{
+    try {
         let add = await Word.create(word)
         req.flash('success', `Added ${add.bisayaWord} to the dictionary`)
-    } catch(e){
+    } catch (e) {
         req.flash('error', e.message)
     }
-    
+
     res.redirect('add')
 })
+
+router.get('/search/:word/:page', async (req, res) => {
+    let word = req.params.word.charAt(0).toUpperCase() + req.params.word.slice(1)
+    let query = await Word.find({
+        bisayaWord: {$regex : `.*${word}.*`}
+    })
+    
+    
+
+  
+    const page = parseInt(req.params.page)
+    const limit = 10
+    const startIndex = (page - 1) * limit
+    const endIndex = page * limit
+    let results = {}
+    if (endIndex < query.length)
+        results.next = {
+            page: page + 1,
+            limit: limit
+        }
+    if (startIndex > 0) {
+        results.previous = {
+            page: page - 1,
+            limit: limit
+        }
+    }
+    results.results = query.slice(startIndex, endIndex)
+    results.total = query.length
+    results.pages = Math.ceil(query.length / limit)
+    res.send(results)
+
+
+
+
+
+
+
+
+
+
+
+
+})
+
 
 
 

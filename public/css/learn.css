@@ -177,8 +177,14 @@ i{
 }
 
 
+
+
 @media only screen and (max-width: 500px) {
+    .short{
+        width: 400px;
+    }
     .quiz {
         font-size: 1.5vmax;
     }
 }
+

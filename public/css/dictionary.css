@@ -1,0 +1,31 @@
+.jumbotron{
+    margin-top: 64px;
+    padding: 20px;
+}
+
+.bisaya-col{
+    background-color: #d5e9eca2;
+}
+
+.word-card{
+    margin-bottom: 10px;
+}
+
+.btnSearch{
+    cursor: pointer;
+}
+
+
+@media only screen and (max-width: 500px) {
+    body{
+        font-size: 12px;
+    }
+    .card-body{
+        padding: 7px;
+    }
+    .jumbotron{
+        margin-top: 40px;
+        padding-bottom: 5px;
+    }
+}
+

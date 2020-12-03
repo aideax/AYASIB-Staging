@@ -1,11 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <%- include('partials/css') %>
+    <link rel="stylesheet" href="/css/dictionary.css">
+    <title>Dictionary Add</title>
 </head>
+
 <body>
-    <h1>This is the dictionary</h1>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h2 class="display-6">Dictionary</h2>
+            <p>Search for the meaning and translation of a specific cebuano word</p>
+        </div>
+    </div>
+    <%- include("partials/navbar") %>
+    <div class="container mainSearch">
+        <%- include("partials/flash") %>
+        <div class="form-inline d-flex justify-content-center md-form form-sm">
+            <input class="form-control form-control-sm mr-3 w-50" id="wordSearch" name="wordSearch" type="text"
+                placeholder="Search" aria-label="Search">
+            <a class="btnSearch"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </div>
+        <div class="word-container">
+            <div class="card word-card hide">
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col bisaya-col">
+                                <small>Cebuano Word</small>
+                                <h5 class="card-title bisaya-word">
+                                    Cebuano Word
+                                </h5>
+                            </div>
+                            <div class="col">
+                                <small>English Word</small>
+                                <h5 class="card-title english-word">
+                                    English Word
+                                </h5>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col bisaya-col">
+                                <small>Cebuano Meaning</small>
+                                <p class="card-title bisaya-meaning">
+                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem, aspernatur!
+                                </p>
+                            </div>
+                            <div class="col">
+                                <small>English Meaning</small>
+                                <p class="card-title english-meaning">
+                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem, aspernatur!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="pageController hide" aria-label="Page">
+        <ul class="pagination pg-blue justify-content-center">
+            <li class="page-item btnFirstPage">
+                <a class="page-link">First Page</a>
+            </li>
+            <li class="page-item btnPrevious disabled">
+                <a class="page-link" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item morePrevious hide">
+                <a class="page-link disabled">...</a>
+            </li>
+            <li class="page-item disabled"><a class="page-link previous-text">1</a></li>
+            <li class="page-item disabled"><a class="page-link current-text">2</a></li>
+            <li class="page-item disabled"><a class="page-link next-text">3</a></li>
+            <li class="page-item moreNext hide">
+                <a class="page-link disabled">...</a>
+            </li>
+            <li class="page-item disabled last-text"><a class="page-link">3</a></li>
+            <li class="page-item btnNext">
+                <a class="page-link">Next</a>
+            </li>
+            <li class="page-item btnLastPage">
+                <a class="page-link">Last Page</a>
+            </li>
+        </ul>
+    </nav>
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <%- include('partials/js') %>
+    <script src="/js/dictionary.js"></script>
 </body>
+
 </html>

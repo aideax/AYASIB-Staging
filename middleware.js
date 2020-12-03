@@ -12,3 +12,4 @@ module.exports.isAdmin = (req, res, next) => {
         return res.redirect('/lessons')
     }
 }
+

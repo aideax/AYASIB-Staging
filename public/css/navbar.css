@@ -1,0 +1,18 @@
+@media only screen and (max-width: 1000px) {
+    .divider{
+        display: none;
+    }
+  }
+
+  .divider:hover{
+    pointer-events: none;
+    cursor: default;
+  }
+  .divider{
+    pointer-events: none;
+    cursor: default;
+}
+
+.hide{
+  display: none;
+}

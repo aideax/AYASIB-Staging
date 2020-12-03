@@ -1,31 +1,60 @@
-<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/lessons">AYASIB</a>
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark blue scrolling-navbar">
+  <a class="navbar-brand" href="/lessons"><strong>AYASIB</strong>
     <% if (currentUser) { %>
-      <div class="navbar-brand">Learning with <strong id="username"><%= currentUser.username.charAt(0).toUpperCase()+currentUser.username.slice(1) %></strong></div>
-    <% } %>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <form class="ml-auto form-inline my-2 my-lg-0">
-        <% if(!currentUser) { %>
-          <a class="nav-item nav-link" href="/dictionary">Dictionary</a>
-          <a class="nav-item nav-link" aria-disabled="true">|</a>
-          <a class="nav-item nav-link" href="/lessons">Learn</a>
-          <a class="nav-item nav-link" href="/user/register">Register</a>
-          <a class="nav-item nav-link" href="/user/login">Login</a>
-        <% } else {%>  
-          <a class="nav-item nav-link" href="/dictionary">Dictionary</a>
-          <% if (currentUser.accountType === 'admin') { %>
-            <a class="nav-item nav-link" href="/contribute/review">Review Submissions</a>
-            <a class="nav-item nav-link" href="/dictionary/add">Add to Dictionary</a>
-          <% } else { %>
-          <a class="nav-item nav-link" href="/lessons">Learn</a>
-          <% } %> 
-          <a class="nav-item nav-link" aria-disabled="true">|</a>
-          <a class="nav-item nav-link" href="/profile">Profile</a>
-          <a class="nav-item nav-link" href="/logout">Logout</a>
-        <% } %> 
-      </form>
-    </div>
-  </nav>
+    Learning with <strong id="username"><%= currentUser.username.charAt(0).toUpperCase()+currentUser.username.slice(1) %>
+      </strong>
+      <% } %>
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <!-- <span class="navbar-toggler-icon"></span> -->
+    <span><i class="fas fa-caret-down"></i></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto"></ul>
+    <% if(!currentUser) { %>
+    <ul class="navbar-nav nav-flex-">
+      <li class="nav-item">
+        <a class="nav-link" href="/dictionary"><i class="fas fa-book"></i>  Dictionary</a>
+      </li>
+      <li class="nav-item divider">
+        <a class="nav-link" aria-disabled="true">|</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/lessons"><i class="fas fa-brain"></i>  Learn</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/user/register"><i class="fas fa-user-edit"></i>  Register</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/user/login"><i class="fas fa-walking"></i>  Login</a>
+      </li>
+      <% } else {%>
+      <ul class="navbar-nav nav-flex-">
+        <li class="nav-item">
+          <a class="nav-link" href="/dictionary"><i class="fas fa-book"></i>  Dictionary</a>
+        </li>
+        <% if (currentUser.accountType === 'admin') { %>
+        <li class="nav-item">
+          <a class="nav-link" href="/contribute/review"><i class="fas fa-search-plus"></i>  Review Submissions</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/dictionary/add"><i class="fas fa-plus-square"></i>  Add to Dictionary</a>
+        </li>
+        <% } else { %>
+        <a class="nav-item nav-link" href="/lessons"><i class="fas fa-brain"></i>  Learn</a>
+        <% } %>
+        <li class="nav-item divider">
+          <a class="nav-link" aria-disabled="true">|</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/profile"><i class="fas fa-user-circle"></i>  Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout"><i class="fas fa-sign-out-alt"></i>  Logout</a>
+        </li>
+        <% } %>
+      </ul>
+
+  </div>
+</nav>

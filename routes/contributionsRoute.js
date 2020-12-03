@@ -13,14 +13,19 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', async (req, res) => {
+    try{
+        let contribution = splitWords(req.body.bisayaPhrase, req.body.englishPhrase, req.body.lesson)
+        let user = await User.findById('5fb988c83ee83f5c2c672ea3')
+        contribution.contributor = user
+        let newContribution = await Contribution.create(contribution)
+        user.contributions.push(newContribution)
+        user.save()
+        res.render('contributeSuccess')
+    } catch(e){
+        req.flash('error', 'Something went wrong with the submission')
+        res.redirect('/')
+    }
     
-    let contribution = splitWords(req.body.bisayaPhrase, req.body.englishPhrase, req.body.lesson)
-    let user = await User.findById('5fb988c83ee83f5c2c672ea3')
-    contribution.contributor = user
-    let newContribution = await Contribution.create(contribution)
-    user.contributions.push(newContribution)
-    user.save()
-    res.render('contributeSuccess')
 })
 
 
