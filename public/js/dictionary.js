@@ -76,11 +76,11 @@ async function updateCards() {
 }
 
 function updatePagination(words) {
-    DOM.pageController.classList.remove('hide')
-    let lastPage = words.pages
-    console.log(words.total)
-    console.log(words.pages)
-    let previous = DOM.textPrevious.textContent
+    // DOM.pageController.classList.remove('hide')
+    // let lastPage = words.pages
+    // console.log(words.total)
+    // console.log(words.pages)
+    // let previous = DOM.textPrevious.textContent
 
     
     

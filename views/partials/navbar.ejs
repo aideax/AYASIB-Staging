@@ -1,4 +1,4 @@
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark blue scrolling-navbar">
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark blue-gradient scrolling-navbar">
   <a class="navbar-brand" href="/lessons"><strong>AYASIB</strong>
     <% if (currentUser) { %>
     Learning with <strong id="username"><%= currentUser.username.charAt(0).toUpperCase()+currentUser.username.slice(1) %>
@@ -42,7 +42,12 @@
           <a class="nav-link" href="/dictionary/add"><i class="fas fa-plus-square"></i>  Add to Dictionary</a>
         </li>
         <% } else { %>
-        <a class="nav-item nav-link" href="/lessons"><i class="fas fa-brain"></i>  Learn</a>
+          <li class="nav-item">
+            <a class="nav-item nav-link" href="/lessons"><i class="fas fa-brain"></i>  Learn</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-item nav-link" href="/contribute"><i class="fas fa-plus"></i>  Contribute</a>
+          </li>
         <% } %>
         <li class="nav-item divider">
           <a class="nav-link" aria-disabled="true">|</a>

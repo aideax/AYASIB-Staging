@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<!-- Google Fonts -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+<!-- Bootstrap core CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/learn.css">
+    <title>Admin Lesson Add</title>
+</head>
+<body>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark blue scrolling-navbar">
+        <a class="navbar-brand" href="/lessons"><strong>AYASIB</strong>
+         
+          Learning with <strong id="username"><%= currentUser.username.charAt(0).toUpperCase()+currentUser.username.slice(1) %>
+            </strong>
+            
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <!-- <span class="navbar-toggler-icon"></span> -->
+          <span><i class="fas fa-caret-down"></i></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto"></ul>
+          
+          <ul class="navbar-nav nav-flex-">
+            <li class="nav-item">
+              <a class="nav-link" href="/dictionary"><i class="fas fa-book"></i>  Dictionary</a>
+            </li>
+            <li class="nav-item divider">
+              <a class="nav-link" aria-disabled="true">|</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/lessons"><i class="fas fa-brain"></i>  Learn</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/user/register"><i class="fas fa-user-edit"></i>  Register</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/user/login"><i class="fas fa-walking"></i>  Login</a>
+            </li>
+            
+            <ul class="navbar-nav nav-flex-">
+              <li class="nav-item">
+                <a class="nav-link" href="/dictionary"><i class="fas fa-book"></i>  Dictionary</a>
+              </li>
+              
+              <li class="nav-item">
+                <a class="nav-link" href="/contribute/review"><i class="fas fa-search-plus"></i>  Review Submissions</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/dictionary/add"><i class="fas fa-plus-square"></i>  Add to Dictionary</a>
+              </li>
+              
+              <a class="nav-item nav-link" href="/lessons"><i class="fas fa-brain"></i>  Learn</a>
+              
+              <li class="nav-item divider">
+                <a class="nav-link" aria-disabled="true">|</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/profile"><i class="fas fa-user-circle"></i>  Profile</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/logout"><i class="fas fa-sign-out-alt"></i>  Logout</a>
+              </li>
+              
+            </ul>
+      
+        </div>
+      </nav>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-4">Admins please add Lessons</h1>
+          <p class="lead">Enter the phrase, the translation, and the category it should be in.</p>
+        </div>
+      </div>
+    <div class="container">
+        <form action="/lessons/add" method="POST">
+            <div class="form-group short">
+                <label for="phrase">Bisaya Phrase</label>
+                <input type="text" class="form-control" id="bPhrase" name="phrase" placeholder="Bisaya Phrase" required>
+                </div>
+                <div class="form-group short">
+                <label for="translation">English Translation</label>
+                <input type="text" class="form-control" id="ePhrase" name="translation" placeholder="English Translation" required>
+                </div>
+                <div class="form-group short">
+                <label for="lesson">Lesson</label>
+                <select class="form-control form-control-md" id="lesson" name="lesson">
+                    <option>Greetings</option>
+                    <option>Questions</option>
+                    <option>Family</option>
+                    <option>Travelling</option>
+                    <option>General</option>
+                </select>
+                </div>
+            <button type="submit" class="btn btn-primary" id="add">Submit</button>
+        </form>
+    </div>
+
+    
+    
+      
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+    <script src="/js/addPhrase.js"></script>
+</body>
+
+</html>
+
+

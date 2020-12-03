@@ -4,36 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%- include('partials/css') %> 
-    <link rel="stylesheet" href="/css/learn.css">
-    
+    <%- include('partials/css') %>
+    <link rel="stylesheet" href="/css/done.css">
+
     <title>Lesson Done</title>
 </head>
 
 <body>
     <%- include("partials/navbar") %>
+
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-          <h1 class="display-4">Maayo! Nahuman nimo ang Greetings</h1>
-          <p class="lead">Well done! You've finished Greetings</p>
+            <h1 class="display-4">Maayo! Nahuman nimo ang Lesson</h1>
+            <p class="lead">Well done! You've finished the Lesson</p>
+            <form action="/lessons" method="get">
+                <button type="submit" class="btn btn-primary">Back to Lessons</button>
+            </form>
         </div>
-      </div>
-    <div class="container">
-        <form action="/lessons" method="post">
-            <button type="submit" class="btn btn-primary">Back to Lessons</button>
-        </form>
     </div>
 
-    
-    
-      
+
+
+
+
+
 
 
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <%- include('partials/js') %> 
+    <%- include('partials/js') %>
 </body>
 
 </html>
-
-

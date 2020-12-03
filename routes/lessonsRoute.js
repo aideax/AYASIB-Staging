@@ -69,7 +69,7 @@ router.get('/:lesson', async (req, res) => {
     
 })
 
-router.get('/:lesson/done', isLoggedIn, async (req, res) => {
+router.get('/:lesson/done', async (req, res) => {
     let lesson = req.params.lesson
     res.render('done',{lesson: lesson})
     

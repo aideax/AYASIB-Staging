@@ -5,6 +5,7 @@ const flash = require('connect-flash')
 const { allowedNodeEnvironmentFlags, nextTick } = require('process')
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
+const cors = require('cors')
 const PORT = process.env.PORT || 5500
 require('dotenv/config')
 
@@ -20,7 +21,7 @@ app.set('view engine', 'ejs')
 app.use(express.static('public'))
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())
-
+app.use(cors())
 
 
 
@@ -58,6 +59,7 @@ app.use((req, res, next) => {
     res.locals.currentUser = req.user
     res.locals.success = req.flash('success')
     res.locals.error = req.flash('error')
+    res.locals.warning = req.flash('warning')
     next()
 })
 
@@ -84,8 +86,7 @@ app.get('/logout', (req, res) => {
 })
 
 app.get('/', (req, res) => {
-
-    res.render('allLessons')
+    res.render('landing')
 })
 
 app.get('*', (req, res) => {

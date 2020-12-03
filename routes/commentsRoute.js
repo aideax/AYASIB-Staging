@@ -30,8 +30,8 @@ router.get('/:questionid', isLoggedIn, async (req, res) => {
     const question = await Question.findById(req.params.questionid).populate({
         path: 'comments',
         populate: {
-            path: 'raters',
-            model: 'User'
+            path: 'replies',
+            model: 'Comment'
         }
     })
     let comments = []
@@ -40,16 +40,34 @@ router.get('/:questionid', isLoggedIn, async (req, res) => {
             id: commentElement._id,
             username: commentElement.username,
             comment: commentElement.comment,
+            replies: commentElement.replies,
             userRating: Number
         }
-        user.ratings.forEach(ratingElement => {
-            if (ratingElement.commentID === commentElement._id) {
-                console.log('Rating ID === commentID')
-                comment.userRating = ratingElement.rating
-            }
-        });
+
         comments.push(comment)
     });
+    res.json(comments)
+})
+
+router.get('/:questionid/guest', async (req, res) => {
+    const question = await Question.findById(req.params.questionid).populate({
+        path: 'comments',
+        populate: {
+            path: 'replies',
+            model: 'Model'
+        }
+    })
+    let comments = []
+    question.comments.forEach(commentElement => {
+        let comment = {
+            id: commentElement._id,
+            username: commentElement.username,
+            comment: commentElement.comment,
+            replies: commentElement.replies,
+            userRating: Number
+        }
+        comments.push(comment)
+    })
     res.json(comments)
 })
 

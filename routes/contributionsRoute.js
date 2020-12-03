@@ -8,19 +8,19 @@ const {isAdmin} = require('../middleware')
 const { find, findByIdAndUpdate } = require('../models/questionModel')
 
 
-router.get('/', (req, res) => {
+router.get('/', isLoggedIn, (req, res) => {
     res.render('contribute')
 })
 
 router.post('/', async (req, res) => {
     try{
         let contribution = splitWords(req.body.bisayaPhrase, req.body.englishPhrase, req.body.lesson)
-        let user = await User.findById('5fb988c83ee83f5c2c672ea3')
+        let user = await User.findById(req.user.id)
         contribution.contributor = user
         let newContribution = await Contribution.create(contribution)
         user.contributions.push(newContribution)
         user.save()
-        res.render('contributeSuccess')
+        res.redirect('/success')
     } catch(e){
         req.flash('error', 'Something went wrong with the submission')
         res.redirect('/')
@@ -28,7 +28,9 @@ router.post('/', async (req, res) => {
     
 })
 
-
+router.get('/success', isLoggedIn, (req, res) => {
+    res.render('contributeSuccess')
+})
 router.get('/review', async (req, res) => {
     let contributions = await Contribution.find({}).populate('contributor')
     res.render('review', {contributions: contributions})

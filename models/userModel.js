@@ -30,7 +30,8 @@ let userSchema = mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Contribution'
         }
-    ]
+    ],
+    lessonsDone: [String]
 });
 
 userSchema.plugin(passportLocalMongoose);
