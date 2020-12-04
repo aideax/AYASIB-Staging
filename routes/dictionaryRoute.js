@@ -28,7 +28,7 @@ router.get('/add', async (req, res) => {
     res.render('dictionaryAdd')
 })
 
-router.post('/add', async (req, res) => {
+router.post('/add', isAdmin, async (req, res) => {
     let input = req.body
     let word = {
         bisayaWord: req.body.bisayaWord,
@@ -76,17 +76,6 @@ router.get('/search/:word/:page', async (req, res) => {
     results.total = query.length
     results.pages = Math.ceil(query.length / limit)
     res.send(results)
-
-
-
-
-
-
-
-
-
-
-
 
 })
 

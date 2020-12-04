@@ -30,7 +30,12 @@ async function updateCards() {
         while (DOM.wordContainer.firstChild) {
             DOM.wordContainer.removeChild(DOM.wordContainer.lastChild)
         }
-        console.log(words)
+        if(!words.data.results.length){
+          let alertHTML = `<div class="alert alert-light" role="alert">No matching word found</div>`
+          let newAlert = document.createElement('div')
+          newAlert.innerHTML = alertHTML
+          DOM.wordContainer.appendChild(newAlert)
+        }
         words.data.results.forEach(word => {
             let newHTML = `<div class="card word-card">
             <div class="card-body">
@@ -69,22 +74,12 @@ async function updateCards() {
             newCard.innerHTML = newHTML
             DOM.wordContainer.appendChild(newCard)
         })
-        updatePagination(words.data)
     } catch (e) {
         console.log(e)
     }
 }
 
-function updatePagination(words) {
-    // DOM.pageController.classList.remove('hide')
-    // let lastPage = words.pages
-    // console.log(words.total)
-    // console.log(words.pages)
-    // let previous = DOM.textPrevious.textContent
 
-    
-    
-}
 
 
 

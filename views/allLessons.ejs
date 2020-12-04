@@ -1,80 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="ayasibIcon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="ayasibIcon.png">
 
-    <%- include("partials/css") %>
-    <link rel="stylesheet" href="/css/allLessons.css">
-    <title>All Lessons</title>
+  <%- include("partials/css") %>
+  <link rel="stylesheet" href="/css/allLessons.css">
+  <title>All Lessons</title>
 </head>
-<body>
-    <%- include("partials/navbar") %>
-    
-    <div class="jumbotron jumbotron-fluid">
-      <div class="container">
-          <h1 class="display-4">All Lessons</h1>
-          <p class="lead">Piliin kung anong lesson ang gusto mong matutunan</p>
-          <p class="lead"><small>Select which lesson you want to learn</small></p>
-      </div>
-    </div>
-    <% if (!currentUser) { %>
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong>You are not logged in</strong>, any progress won't be saved.
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-    <% } %>
-    <div class="container all-lessons">
-      <%- include("partials/flash") %>
-      <div class="sectionLine">Basic Phrases</div>
-        <div class="row row-cols-1 row-cols-md-2">
-            <div class="col mb-4">
-              <div class="card">
-                <div class="card-body">
-                  <a href="/lessons/greetings"><h5 class="card-title">Greetings</h5></a>
-                  <p class="card-text">Learn how to say Hi!</p>
-                  <button type="button" class="btn btn-yellow btnLesson cardBtn">LESSON</button>
-                  <button type="button" class="btn btn-light-green btnPractice cardBtn">PRACTICE</button>
-                </div>
-              </div>
-            </div>
-            <div class="col mb-4">
-              <div class="card">
-                <div class="card-body">
-                  <a href="/lessons/lesson1"><h5 class="card-title">Questions</h5></a>
-                  <p class="card-text">Learn how to ask a question</p>
-                  <button type="button" class="btn btn-yellow btnLesson cardBtn">LESSON</button>
-                  <button type="button" class="btn btn-light-green btnPractice cardBtn">PRACTICE</button>
-                </div>
-              </div>
-            </div>
-            <div class="col mb-4">
-              <div class="card">
-                <div class="card-body">
-                  <a href="#"><h5 class="card-title">Family</h5></a>
-                  <p class="card-text">Learn how to address your family</p>
-                  <button type="button" class="btn btn-yellow btnLesson cardBtn">LESSON</button>
-                  <button type="button" class="btn btn-light-green btnPractice cardBtn">PRACTICE</button>
-                </div>
-              </div>
-            </div>
-            <div class="col mb-4">
-              <div class="card">
-                <div class="card-body">
-                  <a href="#"><h5 class="card-title">Travelling</h5></a>
-                  <p class="card-text">Learn how to ask around</p>
-                  <button type="button" class="btn btn-yellow btnLesson cardBtn">LESSON</button>
-                  <button type="button" class="btn btn-light-green btnPractice cardBtn">PRACTICE</button>
-                </div>
-              </div>
-            </div>
-          </div>
-    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <%- include('partials/js') %> 
+<body>
+  <%- include("partials/navbar") %>
+
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">All Lessons</h1>
+      <p class="lead">Piliin kung anong lesson ang gusto mong matutunan</p>
+      <p class="lead"><small>Select which lesson you want to learn</small></p>
+    </div>
+  </div>
+  <% if (!currentUser) { %>
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>You are not logged in</strong>, any progress won't be saved.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <% } %>
+  <div class="container all-lessons">
+    <%- include("partials/flash") %>
+    <div class="sectionLine">Basic Phrases</div>
+    <div class="row row-cols-1 row-cols-md-2">
+      <div class="col mb-4">
+        <div class="card">
+          <div class="card-body">
+            <a href="/lessons/greetings">
+              <h5 class="card-title">Greetings</h5>
+            </a>
+            <p class="card-text">Learn how to say Hi!</p>
+            <a href="/lessons/greetings/learn"><button type="button"
+                class="btn btn-yellow btnLesson cardBtn">LESSON</button></a>
+            <a href="/lessons/greetings"><button type="button"
+                class="btn btn-light-green btnPractice cardBtn">PRACTICE</button></a>
+          </div>
+        </div>
+      </div>
+      <div class="col mb-4">
+        <div class="card">
+          <div class="card-body">
+            <a href="/lessons/lesson1">
+              <h5 class="card-title">Questions</h5>
+            </a>
+            <p class="card-text">Learn how to ask a question</p>
+            <button type="button" class="btn btn-yellow btnLesson cardBtn">LESSON</button>
+            <button type="button" class="btn btn-light-green btnPractice cardBtn">PRACTICE</button>
+          </div>
+        </div>
+      </div>
+      <div class="col mb-4">
+        <div class="card">
+          <div class="card-body">
+            <a href="#">
+              <h5 class="card-title">Family</h5>
+            </a>
+            <p class="card-text">Learn how to address your family</p>
+            <button type="button" class="btn btn-yellow btnLesson cardBtn">LESSON</button>
+            <button type="button" class="btn btn-light-green btnPractice cardBtn">PRACTICE</button>
+          </div>
+        </div>
+      </div>
+      <div class="col mb-4">
+        <div class="card">
+          <div class="card-body">
+            <a href="#">
+              <h5 class="card-title">Travelling</h5>
+            </a>
+            <p class="card-text">Learn how to ask around</p>
+            <button type="button" class="btn btn-yellow btnLesson cardBtn">LESSON</button>
+            <button type="button" class="btn btn-light-green btnPractice cardBtn">PRACTICE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sectionLine">The Segmental Phonemes <a href=""class="btn btn-light-green tip">Tips</a></div>
+    
+    <div class="row row-cols-1 row-cols-md-2">
+      <div class="col mb-4">
+        <div class="card">
+          <div class="card-body">
+            <a href="/lessons/greetings">
+              <h5 class="card-title">The Front Vowel</h5>
+            </a>
+            <p class="card-text">Ang Patingug Atubang</p>
+            <a href="/lessons/greetings/learn"><button type="button"
+                class="btn btn-yellow btnLesson cardBtn">LESSON</button></a>
+            <a href="/lessons/greetings"><button type="button"
+                class="btn btn-light-green btnPractice cardBtn">PRACTICE</button></a>
+          </div>
+        </div>
+      </div>
+      <div class="col mb-4">
+        <div class="card">
+          <div class="card-body">
+            <a href="/lessons/lesson1">
+              <h5 class="card-title">Center Vowel</h5>
+            </a>
+            <p class="card-text">Learn how to ask a question</p>
+            <button type="button" class="btn btn-yellow btnLesson cardBtn">LESSON</button>
+            <button type="button" class="btn btn-light-green btnPractice cardBtn">PRACTICE</button>
+          </div>
+        </div>
+      </div>
+      <div class="col mb-4">
+        <div class="card">
+          <div class="card-body">
+            <a href="#">
+              <h5 class="card-title">Back Vowel</h5>
+            </a>
+            <p class="card-text">Learn how to address your family</p>
+            <button type="button" class="btn btn-yellow btnLesson cardBtn">LESSON</button>
+            <button type="button" class="btn btn-light-green btnPractice cardBtn">PRACTICE</button>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <%- include('partials/js') %>
 </body>
 </html>

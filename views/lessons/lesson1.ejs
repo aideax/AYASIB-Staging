@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('partials/css') %>
+    <link rel="stylesheet" href="/css/done.css">
+
+    <title>Lesson 1</title>
+</head>
+
+<body>
+    <%- include("partials/navbar") %>
+
+    <div class="container">
+
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-5">Ang mga Punima Sigmintal</h1>
+                <p class="lead">The Segmental Phonemes</p>
+            </div>
+        </div>
+        <form action="/lessons" method="post">
+            <button type="submit" class="btn btn-primary">Back to Lessons</button>
+        </form>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <%- include('partials/js') %>
+</body>
+
+</html>

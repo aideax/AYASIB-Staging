@@ -6,6 +6,7 @@ const { allowedNodeEnvironmentFlags, nextTick } = require('process')
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
 const cors = require('cors')
+const methodOverride = require('method-override')
 const PORT = process.env.PORT || 5500
 require('dotenv/config')
 
@@ -22,7 +23,7 @@ app.use(express.static('public'))
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())
 app.use(cors())
-
+app.use(methodOverride('_method'))
 
 
 
@@ -59,7 +60,7 @@ app.use((req, res, next) => {
     res.locals.currentUser = req.user
     res.locals.success = req.flash('success')
     res.locals.error = req.flash('error')
-    res.locals.warning = req.flash('warning')
+    res.locals.info = req.flash('info')
     next()
 })
 
@@ -90,7 +91,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('*', (req, res) => {
-    res.redirect('/')
+    res.redirect('/lessons')
 })
 
 

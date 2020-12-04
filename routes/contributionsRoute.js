@@ -12,7 +12,7 @@ router.get('/', isLoggedIn, (req, res) => {
     res.render('contribute')
 })
 
-router.post('/', async (req, res) => {
+router.post('/', isLoggedIn, async (req, res) => {
     try{
         let contribution = splitWords(req.body.bisayaPhrase, req.body.englishPhrase, req.body.lesson)
         let user = await User.findById(req.user.id)
@@ -31,13 +31,41 @@ router.post('/', async (req, res) => {
 router.get('/success', isLoggedIn, (req, res) => {
     res.render('contributeSuccess')
 })
-router.get('/review', async (req, res) => {
+router.get('/review', isAdmin, async (req, res) => {
     let contributions = await Contribution.find({}).populate('contributor')
-    res.render('review', {contributions: contributions})
+    
+  
+    const page = 1
+    const limit = 10
+    const startIndex = 1
+    const endIndex = page * limit
+    let results = {}
+   
+    results.results = contributions.slice(startIndex, endIndex)
+    results.total = contributions.length
+    results.pages = Math.ceil(contributions.length / limit)
+    res.render('review', {contributions: results.results})
+
+})
+router.delete('/:reviewID', isAdmin, async (req, res) => {
+    try{
+        let contribution = await Contribution.findByIdAndDelete(req.params.reviewID)
+        req.flash('info', 'Contribution has been deleted')
+    } catch(e){
+        req.flash('error', e.message)
+    }
+    res.redirect('../contribute/review')
 })
 
+router.get('/:reviewID', isAdmin, async (req, res) => {
+    let contributions = await Contribution.findById(req.params.reviewID)
+    res.send(contributions)
+})
 
-
+router.post('/:reviewID', async (req, res) => {
+    
+    res.send('okay')
+})
 
 let splitWords = (bPhrase, ePhrase, lesson) => {
     let splitBisaya = bPhrase.split(" ")
@@ -50,5 +78,7 @@ let splitWords = (bPhrase, ePhrase, lesson) => {
         lesson: lesson
     }
 }
+
+
 
 module.exports = router

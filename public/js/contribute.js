@@ -1,6 +1,5 @@
 
 
-
 let DOM = {
     bisaya: document.querySelector('#bisayaPhrase'),
     english: document.querySelector('#englishPhrase'),
