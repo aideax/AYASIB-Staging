@@ -54,7 +54,7 @@ router.get('/:questionid/guest', async (req, res) => {
         path: 'comments',
         populate: {
             path: 'replies',
-            model: 'Model'
+            model: 'Comment'
         }
     })
     let comments = []

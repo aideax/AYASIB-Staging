@@ -1,20 +1,38 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <%- include('partials/css') %>
-  <link rel="stylesheet" href="/css/landing.css">
-  <title>AYASIB</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="ayasibIcon.png">
+    <%- include('partials/css') %> 
+    <link rel="stylesheet" href="/css/landing.css">
+    <title>YelpCamp</title>
+   
 </head>
-
-<body>
  
+<body class="d-flex text-center">
+  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <header class="mb-auto">
+      <%- include('partials/navbar') %> 
+    </header>
+    <main class="px-3 mainContainer">
+        <img src="/ayasibLogo.png" class="img-fluid" alt="Responsive image">
+        <h1><strong>AYASIB</strong></h1>
+        <p class="lead"> <strong>A community-based language learning app </strong> <br> Learn Cebuano with a friendly community<br>
+        <a href="/campgrounds" class="btn btn-lg blue-gradient">Magtuon na ta</a>
+    </main>
+
+    <footer class="mt-auto text-white-50">
+        <p>&copy; 2020 </p>
+    </footer>
 
 
+</div>
 
-  <%- include('partials/js') %>
-  <script src="/js/landing.js"></script>
+
+    <%- include('partials/js') %> 
 </body>
 
 </html>

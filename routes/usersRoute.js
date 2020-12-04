@@ -60,4 +60,9 @@ router.post('/login/quick', passport.authenticate('local', {
     })
 
 
+router.get('/profile', isLoggedIn, async (req, res) => {
+    let user = await User.findById(req.user.id)
+    console.log("User", user)
+    res.render('profile', {user: user})
+})
 module.exports = router

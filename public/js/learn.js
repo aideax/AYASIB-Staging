@@ -281,15 +281,15 @@ let showQuestions = async () => {
             console.log(comments)
             comments.forEach(element => {
                 let newClone = DOM.commentMain.cloneNode(true)
-                let newHTML = `<div class="card-header comment-username">
+                let newHTML = `<div class="card-header comment-username" id="${element.id}">
                                 ${element.username}
                                 </div>
                                 <div class="card-body col-8">
                                 <p class="card-text">${element.comment}</p>
-                                <button class="btn btn-light mb-2 btnLoadReply"><i class="far fa-comments"></i><small> Toggle replies </small></button>
+                                <a class="btnLoadReply"><i class="far fa-comments"></i><small>  Toggle replies </small></a>
                                 </div>
                                 
-                                <div class="container replies">
+                                <div class="container replies hide">
                                 <div class="form-group">
                                 <label for="comment-text">Leave a Reply</label>
                                 <textarea class="form-control comment-in" id="comment-text" name="comment-text" rows="2"></textarea>
@@ -304,8 +304,12 @@ let showQuestions = async () => {
                 newClone.classList.remove('hide')
                 newClone.id = element.id
                 newClone.innerHTML = newHTML
-                newClone.addEventListener('click', voteListeners)
                 DOM.commentContainer.appendChild(newClone)
+                document.querySelector('.btnLoadReply').addEventListener('click', (e) => {
+                    console.log('Target', e.target)
+                    loadReplies(element)
+                })
+                
             })
 
         } else {
@@ -328,6 +332,13 @@ let showQuestions = async () => {
         DOM.commentContainer.innerHTML = reset
 
     }
+
+    async function loadReplies(e){
+        console.log('Loading Replies', e)
+
+    }
+
+
 
     function showSuccess() {
         let newHTML = `<div class="alert alert-success alert-dismissible fade show" role="alert">Comment added!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>`

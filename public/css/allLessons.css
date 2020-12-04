@@ -35,3 +35,19 @@
     margin: 0;
     padding: 10px 10px;
 }
+
+.modalHeader{
+    font-weight: 400;
+}
+
+.paddedModal{
+    padding: 30px;
+}
+
+.noBotPadding{
+    margin-bottom: 5px !important;
+}
+
+.right{
+    float: right;
+}

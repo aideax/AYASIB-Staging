@@ -50,6 +50,7 @@ router.get('/review', isAdmin, async (req, res) => {
 router.delete('/:reviewID', isAdmin, async (req, res) => {
     try{
         let contribution = await Contribution.findByIdAndDelete(req.params.reviewID)
+        
         req.flash('info', 'Contribution has been deleted')
     } catch(e){
         req.flash('error', e.message)
@@ -64,8 +65,9 @@ router.get('/:reviewID', isAdmin, async (req, res) => {
 
 router.post('/:reviewID', async (req, res) => {
     
-    res.send('okay')
+    res.redirect('success')
 })
+
 
 let splitWords = (bPhrase, ePhrase, lesson) => {
     let splitBisaya = bPhrase.split(" ")

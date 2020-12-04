@@ -115,6 +115,7 @@ i{
 .btnLoadReply{
     padding: 5px 12px 5px 12px;
     margin: 0;
+    cursor: pointer;
 }
 
 

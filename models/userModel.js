@@ -31,7 +31,10 @@ let userSchema = mongoose.Schema({
             ref: 'Contribution'
         }
     ],
-    lessonsDone: [String]
+    lessonsDone: {
+        type: Number,
+        default: 0
+    }
 });
 
 userSchema.plugin(passportLocalMongoose);

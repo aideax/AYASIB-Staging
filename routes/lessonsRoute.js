@@ -33,7 +33,7 @@ router.post('/add', isLoggedIn, isAdmin, async (req, res) => {
     
     let add = await Question.create(question, (err, newQuestion) => {
         if(err){
-            console.log(err)
+            req.flash('error', err.message)
         }
     })
     res.redirect('add')
@@ -47,15 +47,11 @@ router.get('/get/asd', async (req, res) => {
 
 
 router.get('/get/:lesson', async (req, res) => {
-    console.log('getting lesson')
     let lesson = req.params.lesson
     const questions = await Question.find({lesson: lesson})
-    console.log("questions length", questions.length)
     if(questions.length < 1){
-        console.log('not sending json')
         res.json('denied')
     } else{
-        console.log('sending json')
         res.json(questions)
     }
 })
@@ -75,15 +71,13 @@ router.get('/:lesson/done', async (req, res) => {
     
 })
 
-router.post('/:lesson/done', async (req, res) => {
+router.post('/:lesson/done', isLoggedIn, async (req, res) => {
     let input = req.body
-    console.log(input)
     const gotUser = await User.findById(req.user.id)
 
     for(let x = 0; x < gotUser.knownWords.length; x++){
         for(let i=0; i<input.words.length; i++) {
             if(input.words[i]===gotUser.knownWords[x]){
-                console.log('You are splicing', input.words[i])
                 input.words.splice(i, 1); 
             } 
         }
@@ -95,14 +89,14 @@ router.post('/:lesson/done', async (req, res) => {
     for(let x = 0; x < gotUser.knownPhrases.length; x++){
         for(let i=0; i<input.phrases.length; i++) {
             if(input.phrases[i].bisaya===gotUser.knownPhrases[x].phrase){
-                console.log('You are splicing', input.phrases[i])
                 input.phrases.splice(i, 1); 
             } 
         }
     }
-    input.words.forEach(element => {
-        gotUser.knownWords.push(element)
+    input.phrases.forEach(element => {
+        gotUser.knownPhrases.push(element)
     })
+    gotUser.lessonsDone += 1
     gotUser.save()
     res.status(202).send()
 })
