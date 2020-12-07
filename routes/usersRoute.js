@@ -13,6 +13,10 @@ router.get('/', isLoggedIn, (req, res) => {
     res.send('You are viewing user')
 })
 
+router.get('/buffer', (req, res) => {
+    req.flash('success', 'Welcome to AYASIB!')
+    res.redirect('login')
+})
 router.get('/register', (req, res) => {
     res.render('register')
 })
@@ -27,10 +31,10 @@ router.post('/register', async (req, res) => {
             username
         })
         const registerUser = await User.register(user, password)
-        req.flash('success', 'Welcome to AYASIB!')
-        res.redirect('../lessons/')
+        res.redirect('buffer')
     } catch (e) {
-        req.flash('error', e.failureMessage)
+        console.log(e.message)
+        req.flash('error', e)
         res.redirect('register')
     }
 })
