@@ -2,51 +2,56 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="ayasibIcon.png">
-    <%- include('partials/css') %> 
-    <link rel="stylesheet" href="/css/learn.css">
-    
-    <title>AYASIB Register</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="ayasibIcon.png">
+  <%- include('partials/css') %>
+  <link rel="stylesheet" href="/css/contribute.css">
+
+  <title>AYASIB Register</title>
 </head>
 
 <body>
-    <%- include("partials/navbar") %>
-    <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-          <h1 class="display-4">Create Your AYASIB account</h1>
-          <p class="lead">We are excited to learn with you</p>
-        </div>
-      </div>
+  <%- include("partials/navbar") %>
+  <div class="jumbotron jumbotron-fluid">
     <div class="container">
-        <form action="/user/register" method="post">
-            <div class="form-group short">
-                <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
-              </div>
-              <div class="form-group short">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
-              </div>
-              <div class="form-group short">
-                <label for="confirm">Confirm Password</label>
-                <input type="password" class="form-control" id="confirm" name="confirm" placeholder="Password" required>
-              </div>
-            <button type="submit" class="btn btn-primary">Register</button>
-        </form>
+      <h1 class="display-4">Create Your AYASIB account</h1>
+      <p class="lead">We are excited to learn with you</p>
     </div>
+  </div>
+  <div class="container">
+    <%- include('partials/flash') %> 
+    <form action="/user/register" method="post">
+      <div class="form-group short">
+        <label for="username"><i class="fas fa-user"></i>  Username</label>
+        <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
+      </div>
+      <div class="form-group short">
+        <label for="username"><i class="fas fa-at"></i>  E-mail <small>Your email to be used for password recovery.</small></label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="Email address" required>
+        
+      </div>
+      <div class="form-group short">
+        <label for="password"><i class="fas fa-lock"></i>  Password</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+      </div>
+      <div class="form-group short">
+        <label for="confirm"><i class="fas fa-lock"></i>  Confirm Password</label>
+        <input type="password" class="form-control" id="confirm" name="confirm" placeholder="Password" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+  </div>
 
-    
-    
-      
 
 
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <%- include('partials/js') %> 
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <%- include('partials/js') %>
+  <script src="/js/register.js"></script>
 </body>
 
 </html>
-
-

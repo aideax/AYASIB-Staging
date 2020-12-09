@@ -1,8 +1,14 @@
 let mongoose = require('mongoose');
 const passportLocalMongoose = require('passport-local-mongoose');
+const uniqueValidator = require('mongoose-unique-validator')
 
 let userSchema = mongoose.Schema({
     username: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    email: {
         type: String,
         required: true,
         unique: true
@@ -34,11 +40,12 @@ let userSchema = mongoose.Schema({
     lessonsDone: {
         type: Number,
         default: 0
-    }
+    },
+    resetPasswordToken: String,
+    resetPasswordExpires: Date
 });
 
 userSchema.plugin(passportLocalMongoose);
-
 module.exports = mongoose.model("User", userSchema);
 
 

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="ayasibIcon.png">
+    <%- include('partials/css') %>
+    <link rel="stylesheet" href="/css/dictionary.css">
+    
+    <title>AYASIB Dictionary</title>
+</head>
+
+<body>
+  <%- include("partials/navbar") %>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h2 class="display-6">Password Recovery</h2>
+            <p>Please provide an email associated with your AYASIB account</p>
+        </div>
+    </div>
+    <div class="container">
+      <%- include("partials/flash") %>
+        <form action="/user/forgot" method="post">
+          <div class="form-group short">
+            <label for="username">E-mail</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Email address" required>
+            <small>Your email associated with your AYASIB account.</small>
+          </div>
+          <button type="submit" class="btn btn-primary">Request Reset</button>
+        </form>
+      </div>
+    
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <%- include('partials/js') %>
+    <script src="/js/forgot.js"></script>
+</body>
+
+</html>
+

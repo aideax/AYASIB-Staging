@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const async = require('async')
 const Question = require('../models/questionModel')
 const User = require('../models/userModel')
 const Word = require('../models/wordModel')
@@ -49,9 +50,8 @@ router.post('/add', isAdmin, async (req, res) => {
 
 router.get('/search/:word/:page', async (req, res) => {
     let word = req.params.word.charAt(0).toUpperCase() + req.params.word.slice(1)
-    let query = await Word.find({
-        bisayaWord: {$regex : `.*${word}.*`}
-    })
+    // let query = await Word.find({bisayaWord: {$regex : `.*${word}.*`}})
+    let query = await Word.find({ $or: [{bisayaWord: {$regex : `.*${word}.*`}}, {englishWord: {$regex:`.*${word}.*`}}]})
     
     
 

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="ayasibIcon.png">
+  <%- include('partials/css') %>
+  <link rel="stylesheet" href="/css/contribute.css">
+
+  <title>AYASIB Reset Password</title>
+</head>
+
+<body>
+  <%- include("partials/navbar") %>
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">Reset your AYASIB account password</h1>
+      <p class="lead">We are excited to have you back</p>
+    </div>
+  </div>
+  <div class="container">
+    <%- include('partials/flash') %> 
+    <form action="/user/reset/<%= token %>" method="post">
+      <div class="form-group short">
+        <label for="password"><i class="fas fa-lock"></i>  Password</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="New Password" required>
+      </div>
+      <div class="form-group short">
+        <label for="confirm"><i class="fas fa-lock"></i>  Confirm Password</label>
+        <input type="password" class="form-control" id="confirm" name="confirm" placeholder="Confirm New Password" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Reset Password</button>
+    </form>
+  </div>
+
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <%- include('partials/js') %>
+  <script src="/js/reset.js"></script>
+</body>
+
+</html>

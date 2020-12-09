@@ -7,7 +7,7 @@ const Rating = require('../models/ratingsModel')
 const Question = require('../models/questionModel')
 const {isLoggedIn} = require('../middleware')
 const { resolveInclude } = require('ejs')
-
+const async = require('async')
 
 router.post('/upvote/:commentid', async (req, res) => {
   

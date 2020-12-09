@@ -1,10 +1,14 @@
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
-const flash = require('connect-flash')
 const { allowedNodeEnvironmentFlags, nextTick } = require('process')
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
+const passportLocalMongoose = require('passport-local-mongoose');
+const uniqueValidator = require('mongoose-unique-validator')
+
+
+const flash = require('connect-flash')
 const cors = require('cors')
 const methodOverride = require('method-override')
 const PORT = process.env.PORT || 5500
@@ -24,7 +28,6 @@ app.use(express.urlencoded({extended: false}))
 app.use(express.json())
 app.use(cors())
 app.use(methodOverride('_method'))
-
 
 
 mongoose.connect(process.env.DB_CONNECTION, {

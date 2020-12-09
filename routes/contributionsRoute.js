@@ -6,7 +6,7 @@ const Contribution = require('../models/contributionsModel')
 const {isLoggedIn} = require('../middleware')
 const {isAdmin} = require('../middleware')
 const { find, findByIdAndUpdate } = require('../models/questionModel')
-
+const async = require('async')
 
 router.get('/', isLoggedIn, (req, res) => {
     res.render('contribute')

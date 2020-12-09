@@ -5,6 +5,8 @@ const User = require('../models/userModel')
 const Comment = require('../models/commentsModel')
 const Rating = require('../models/ratingsModel')
 const Question = require('../models/questionModel')
+const async = require('async')
+
 const {
     isLoggedIn
 } = require('../middleware')
@@ -13,40 +15,16 @@ const {
 } = require('../models/questionModel')
 
 
-router.get('/devAdd', async (req, res) => {
-    // const user = await User.findById(`5fb988c83ee83f5c2c672ea3`)
-    // const comment = await Comment.findById('5fc01f5903fa154c104d5bab')
-    // comment.raters.push(user)
-    // comment.save()
-    // res.send(comment)
-
-    const comment = await Comment.findById('5fc01f5903fa154c104d5bab').populate('raters')
-    res.send(comment)
-})
 
 
-router.get('/:questionid', isLoggedIn, async (req, res) => {
-    const user = await User.findById(req.user.id).populate('ratings')
-    const question = await Question.findById(req.params.questionid).populate({
-        path: 'comments',
-        populate: {
-            path: 'replies',
-            model: 'Comment'
-        }
-    })
-    let comments = []
-    question.comments.forEach(commentElement => {
-        let comment = {
-            id: commentElement._id,
-            username: commentElement.username,
-            comment: commentElement.comment,
-            replies: commentElement.replies,
-            userRating: Number
-        }
-
-        comments.push(comment)
-    });
-    res.json(comments)
+router.get('/:questionid', async (req, res) => {
+    const question = await Question.findById(req.params.questionid).populate('comments')
+    if(!question){
+        res.send('no question')
+    } else {
+        res.send(question)
+    }
+    
 })
 
 router.get('/:questionid/guest', async (req, res) => {
@@ -94,10 +72,17 @@ router.post('/:question/add', isLoggedIn, async (req, res) => {
         req.flash('error', e.message)
         res.send(e.message)
     }
+})
+
+
+router.post('/:questionid/reply', async (req, res) => {
+    let input = req.body
+    const question = Question.findById(req.params.questionid)
+    
+
 
 
 })
-
 
 
 

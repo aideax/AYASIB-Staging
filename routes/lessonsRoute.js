@@ -6,7 +6,7 @@ const Word = require('../models/wordModel')
 const {isLoggedIn} = require('../middleware')
 const {isAdmin} = require('../middleware')
 const { find, findByIdAndUpdate } = require('../models/questionModel')
-
+const async = require('async')
 
 
 router.get('/', (req, res) => {

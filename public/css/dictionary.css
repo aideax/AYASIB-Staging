@@ -29,3 +29,20 @@
     }
 }
 
+
+.invalid{
+    box-shadow: 0 0 5px 1px #ef8197;
+}
+.valid{
+    box-shadow: 0 0 5px 1px #78f8a5;
+}
+
+.short {
+    width: 400px;
+}
+
+@media only screen and (max-width: 500px) {
+    .short {
+        width: 300px;
+    }
+}
