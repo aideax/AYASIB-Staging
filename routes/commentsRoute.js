@@ -74,13 +74,37 @@ router.post('/:question/add', isLoggedIn, async (req, res) => {
     }
 })
 
-
-router.post('/:questionid/reply', async (req, res) => {
-    let input = req.body
-    const question = Question.findById(req.params.questionid)
+router.get('/reply/:commentid', async (req, res) => {
+    try{
+        let comment = await Comment.findById(req.params.commentid).populate('replies')
+        res.send(comment.replies)
+    }catch(e){
+        req.flash('error', e.message)
+        res.redirect('../lessons')
+    }
     
 
+})
 
+router.post('/reply/:commentid', isLoggedIn, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id)
+        const newComment = new Comment({
+            comment: req.body.comment,
+            user: user,
+            username: user.username
+        })
+        const comment = await Comment.findById(req.params.commentid)
+        user.comments.push(newComment)
+        comment.replies.push(newComment)
+        newComment.save()
+        comment.save()
+        user.save()
+        res.send(comment)
+    } catch (e) {
+        req.flash('error', e.message)
+        res.send(e.message)
+    }
 
 })
 

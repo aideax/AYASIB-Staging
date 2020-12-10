@@ -10,7 +10,7 @@ let getQuestions = async () => {
     if (res.data === 'denied') {
         location.href = `http://localhost:5500/lessons`
     } else {
-        console.log('Axios success')
+        console.log('Questions loaded')
         return res.data
     }
 
@@ -140,7 +140,8 @@ let showQuestions = async () => {
         commentSection: document.querySelector('.comments-section'),
         modalConfirm: document.querySelector('.modalConfirm'),
         modalLater: document.querySelector('.modalLater'),
-        modalBtnLogin: document.querySelector('#modalBtnLogin')
+        modalBtnLogin: document.querySelector('#modalBtnLogin'),
+        commentCards: document.querySelectorAll('.comment-main'),
     }
 
 
@@ -197,18 +198,48 @@ let showQuestions = async () => {
 
     async function checkAnswer(e) {
         if (answer === currentQuestion.correctItem) {
-            
+
             updateProgress()
             buttonPressed.classList.remove('neutral')
             buttonPressed.classList.add('correct')
             DOM.btnConfirm.classList.add('hide')
             DOM.btnNext.classList.remove('hide')
-           
+
         } else {
             buttonPressed.classList.remove('neutral')
             buttonPressed.classList.add('wrong')
         }
     }
+
+    async function updateProgress() {
+        score++
+        DOM.progress.setAttribute('aria-valuenow', (score * 10));
+        DOM.progress.setAttribute('style', `width: ${score*10}%`)
+        if (score === 10) {
+            if (!DOM.username) {
+                console.log('Progress not saved')
+            } else {
+                const res = await axios.post(`http://localhost:5500/lessons/${lesson}/done`, {
+                    words: allWords,
+                    phrases: allPhrases
+                })
+
+            }
+
+            return location.href = `http://localhost:5500/lessons/${lesson}/done`
+
+
+        }
+    }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -223,19 +254,16 @@ let showQuestions = async () => {
             let comment = {}
             if (content) {
                 comment.comment = content
-                try {
-                    const res = await axios.post(`http://localhost:5500/comments/${id}/add`, {
-                        comment: content
-                    })
-                    console.log('Successfully added', res)
-                    DOM.commentIn.value = ''
 
-                    showSuccess()
-                    loadComments()
+                const res = await axios.post(`http://localhost:5500/comments/${id}/add`, {
+                    comment: content
+                })
+                DOM.commentIn.value = ''
 
-                } catch (e) {
-                    window.alert(`There has been an error! ${e.message}`)
-                }
+                showSuccess()
+                loadComments()
+
+
             }
         } else {
             if (window.confirm('You must be logged in to post a comment. Log in now?')) {
@@ -257,60 +285,76 @@ let showQuestions = async () => {
         let questionid = currentQuestion.id
         let comments = []
         try {
-            if (!DOM.username) {
-                const res = await axios.get(`http://localhost:5500/comments/${questionid}/guest`)
-                console.log(res)
-                clearComments()
-                res.data.forEach(element => {
-                    comments.push(element)
-                })
-            } else {
-                const res = await axios.get(`http://localhost:5500/comments/${questionid}`)
-                console.log(res)
-                clearComments()
-                res.data.forEach(element => {
-                    comments.push(element)
-                })
-            }
+            const res = await axios.get(`http://localhost:5500/comments/${questionid}/guest`)
+            clearComments()
+            res.data.forEach(element => {
+                comments.push(element)
+            })
 
         } catch (e) {
             console.log(e.message)
         }
 
         if (comments.length >= 1) {
-            console.log(comments)
             comments.forEach(element => {
                 let newClone = DOM.commentMain.cloneNode(true)
                 let newHTML = `<div class="card-header comment-username" id="${element.id}">
                                 ${element.username}
                                 </div>
                                 <div class="card-body col-8">
-                                <p class="card-text">${element.comment}</p>
-                                <a class="btnLoadReply"><i class="far fa-comments"></i><small>  Toggle replies </small></a>
+                                <h4 class="card-text">${element.comment}</h4>
+                                <small><a class="btnLoadReply"><i class="far fa-comments"></i>  Toggle replies</a></small>
                                 </div>
-                                
                                 <div class="container replies hide">
                                 <div class="form-group">
-                                <label for="comment-text">Leave a Reply</label>
-                                <textarea class="form-control comment-in" id="comment-text" name="comment-text" rows="2"></textarea>
+                                <label for="reply-text">Leave a Reply</label>
+                                <textarea class="form-control reply-in" id="reply-text" name="reply-text" rows="2"></textarea>
+                                <button type="submit" class="confirm btn btn-primary waves-effect waves-light btnReply hide">Reply</button>
                                 </div>
-                                <div class="card-header comment-username">
+                                
+                                <h6> Replies </h6>
+                                <div class="replyCard">
+                                <div class="card-header reply-username">
                                     Username
                                 </div>
                                 <div class="card-body col-8">
-                                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                                </div>
                                 </div>
                                 </div>`
                 newClone.classList.remove('hide')
                 newClone.id = element.id
                 newClone.innerHTML = newHTML
                 DOM.commentContainer.appendChild(newClone)
-                document.querySelector('.btnLoadReply').addEventListener('click', (e) => {
-                    console.log('Target', e.target)
-                    loadReplies(element)
-                })
-                
             })
+            DOM.commentCards = document.querySelectorAll('.comment-main')
+            DOM.commentCards.forEach(element => {
+
+                element.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('btnLoadReply')) {
+                        loadReplies(e.target.parentNode.parentNode.parentNode)
+                    }
+                    if (e.target.classList.contains('btnReply')) {
+                        if (!DOM.username) {
+                            checkLogIn()
+                        } else {
+                            postReply(e.target.parentNode.parentNode.parentNode, e.target.previousElementSibling.value)
+                        }
+
+                    }
+                    if (e.target.classList.contains('reply-in')) {
+                        checkLogIn()
+                    }
+                })
+
+                element.addEventListener('input', (e) => {
+                    if (e.target.value == '') {
+                        e.target.nextElementSibling.classList.add('hide')
+                    } else {
+                        e.target.nextElementSibling.classList.remove('hide')
+                    }
+                })
+            });
 
         } else {
             let noCommentHTML = `<div class="alert alert-light" role="alert">This question has no comments yet. Start a conversation!</div>`
@@ -333,12 +377,43 @@ let showQuestions = async () => {
 
     }
 
-    async function loadReplies(e){
-        console.log('Loading Replies', e)
+    async function loadReplies(e) {
+        let replyContainer = e.lastChild
+        e.lastChild.classList.remove('hide')
+        while (replyContainer.lastElementChild.classList.contains('replyCard')) {
+            replyContainer.removeChild(replyContainer.lastElementChild)
+        }
+        const replies = await axios.get(`http://localhost:5500/comments/reply/${e.id}`)
+        if (replies.data.length) {
+            replies.data.forEach(element => {
+                let replyHTML = `<div class="replyCard">
+                                <div class="card-header reply-username" id="${element.id}">
+                                ${element.username}
+                                </div>
+                                <div class="card-body col-8">
+                                <p class="card-text">${element.comment}</p>
+                                </div>
+                                </div>`
+                let newReplyCard = document.createElement('div')
+                newReplyCard.innerHTML = replyHTML
+                replyContainer.appendChild(newReplyCard)
+            });
+
+        } else {
+            let noCommentHTML = `<div class="alert alert-light" role="alert">This comment has no replies.</div>`
+            let alertdiv = document.createElement('div')
+            alertdiv.innerHTML = noCommentHTML
+            replyContainer.appendChild(alertdiv)
+        }
 
     }
 
-
+    async function postReply(e, reply) {
+        const res = await axios.post(`http://localhost:5500/comments/reply/${e.id}`, {
+            comment: reply
+        })
+        loadReplies(e)
+    }
 
     function showSuccess() {
         let newHTML = `<div class="alert alert-success alert-dismissible fade show" role="alert">Comment added!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>`
@@ -350,34 +425,25 @@ let showQuestions = async () => {
 
 
 
-    async function updateProgress() {
-        score++
-        DOM.progress.setAttribute('aria-valuenow', (score * 10));
-        DOM.progress.setAttribute('style', `width: ${score*10}%`)
-        if(score === 10){
-                if(!DOM.username){
-                    console.log('no user')
-                } else {
-                    const res = await axios.post(`http://localhost:5500/lessons/${lesson}/done`, {
-                        words: allWords,
-                        phrases: allPhrases
-                    })
-                    console.log('Successfully added', res)
-                    
-                }
 
-                return location.href = `http://localhost:5500/lessons/${lesson}/done`
-                
-                
-        }
-    }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
     // RATINGS FUNCTIONS
 
     function voteListeners(e) {
-        
+
         console.log(e.target)
         if (e.target.classList.contains('upvote')) {
             checkLogIn()
@@ -427,10 +493,6 @@ let showQuestions = async () => {
 
 
 
-    async function login() {
-        const res = await axios.post(`http://localhost:5500/users/login/quick`)
-    }
-
 
     function checkLogIn() {
         if (!DOM.username) {
@@ -439,10 +501,14 @@ let showQuestions = async () => {
                 $('#checkLoginModal').modal('hide')
                 $('#loginModal').modal('show')
                 DOM.modalBtnLogin.addEventListener('click', login)
+
             })
             DOM.modalLater.addEventListener('click', () => {
                 $('#checkLoginModal').modal('hide')
+                return false
             })
+        } else {
+            return true
         }
     }
 

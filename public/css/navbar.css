@@ -21,7 +21,11 @@
     margin-top: 50px;
 }
 
-
+.card-text{
+  color: black !important;
+  font-weight: 250 !important;
+  font-size: 1.2rem !important;
+}
 
 @media only screen and (max-width: 500px) {
   body{
@@ -36,4 +40,11 @@
 .logo{
   width: 5%;
   margin-right: 15px;
+}
+
+.btnReply{
+  padding: 5px 10px !important;
+  margin: 2px 0;
+  float: right;
+
 }
