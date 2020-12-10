@@ -215,7 +215,7 @@ let showQuestions = async () => {
         score++
         DOM.progress.setAttribute('aria-valuenow', (score * 10));
         DOM.progress.setAttribute('style', `width: ${score*10}%`)
-        if (score === 10) {
+        if (score === 2) {
             if (!DOM.username) {
                 console.log('Progress not saved')
             } else {
@@ -338,7 +338,7 @@ let showQuestions = async () => {
                         if (!DOM.username) {
                             checkLogIn()
                         } else {
-                            postReply(e.target.parentNode.parentNode.parentNode, e.target.previousElementSibling.value)
+                            postReply(e.target.parentNode.parentNode.parentNode, e.target.previousElementSibling)
                         }
 
                     }
@@ -380,7 +380,7 @@ let showQuestions = async () => {
     async function loadReplies(e) {
         let replyContainer = e.lastChild
         e.lastChild.classList.remove('hide')
-        while (replyContainer.lastElementChild.classList.contains('replyCard')) {
+        while (replyContainer.lastElementChild.classList.contains('replyCard') || replyContainer.lastElementChild.classList.contains('alert')) {
             replyContainer.removeChild(replyContainer.lastElementChild)
         }
         const replies = await axios.get(`http://localhost:5500/comments/reply/${e.id}`)
@@ -410,8 +410,17 @@ let showQuestions = async () => {
 
     async function postReply(e, reply) {
         const res = await axios.post(`http://localhost:5500/comments/reply/${e.id}`, {
-            comment: reply
+            comment: reply.value
         })
+        let newHTML = `<div class="alert alert-success alert-dismissible fade show" role="alert">Reply added!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>`
+        let alert = document.createElement('div')
+        alert.innerHTML = newHTML
+        reply.prepend(alert)
+        setInterval(() => {
+            reply.value = ''
+            reply.nextElementSibling.classList.add('hide')
+        }, 2000);
+
         loadReplies(e)
     }
 

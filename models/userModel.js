@@ -14,10 +14,8 @@ let userSchema = mongoose.Schema({
         unique: true
     },
     knownWords: [{type: String}],
-    knownPhrases: [{
-        phrase:{type: String},
-        translation:{type: String}
-    }],
+    knownBisaya: [{type: String}],
+    knownEnglish: [{type: String}],
     accountType: String,
     comments: [
         {

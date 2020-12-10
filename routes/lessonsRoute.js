@@ -74,7 +74,6 @@ router.get('/:lesson/done', async (req, res) => {
 router.post('/:lesson/done', isLoggedIn, async (req, res) => {
     let input = req.body
     const gotUser = await User.findById(req.user.id)
-
     for(let x = 0; x < gotUser.knownWords.length; x++){
         for(let i=0; i<input.words.length; i++) {
             if(input.words[i]===gotUser.knownWords[x]){
@@ -86,15 +85,21 @@ router.post('/:lesson/done', isLoggedIn, async (req, res) => {
         gotUser.knownWords.push(element)
     })
 
-    for(let x = 0; x < gotUser.knownPhrases.length; x++){
+    console.log('Input',input.phrases)
+    console.log('DB', gotUser.knownBisaya)
+
+
+    for(let x = 0; x < gotUser.knownBisaya.length; x++){
         for(let i=0; i<input.phrases.length; i++) {
-            if(input.phrases[i].bisaya===gotUser.knownPhrases[x].phrase){
+            if(input.phrases[i].bisaya === gotUser.knownBisaya[x]){
                 input.phrases.splice(i, 1); 
             } 
         }
     }
+
     input.phrases.forEach(element => {
-        gotUser.knownPhrases.push(element)
+        gotUser.knownBisaya.push(element.bisaya)
+        gotUser.knownEnglish.push(element.english)
     })
     gotUser.lessonsDone += 1
     gotUser.save()
