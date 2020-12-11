@@ -1,5 +1,4 @@
 
-
 let DOM = {
     card: document.querySelectorAll('.review-main'),
     btnCancelDelete: document.querySelector('.btnCancelDelete'),
@@ -8,22 +7,34 @@ let DOM = {
 
 
 
-let acceptSubmission = async (e) => {
-    console.log(e.target)
-}
 
 let cardClicked = (e) => {
-    if(e.target.classList.contains('edit')){
+    if (e.target.classList.contains('edit')) {
         console.log('editing')
         showForms(e.target.parentNode.parentNode)
     }
-    if(e.target.classList.contains('delete')){
+    if (e.target.classList.contains('delete')) {
         console.log('deleting')
         confirmDelete(e.target.parentNode.parentNode)
     }
+    if(e.target.classList.contains('accept')){
+        console.log('accepting')
+        acceptSubmission(e.target.parentNode.parentNode)
+    }
+   
 }
 
-let confirmDelete = async(e) => {
+let acceptSubmission = async (e) => {
+    let card = e
+    console.log('Accepting Submission', card)
+    console.log('Children', card.firstChild.nextElementSibling)
+
+
+    //const res = await axios.post(`http://localhost:5500/dictionary/add`, {})
+}
+
+
+let confirmDelete = async (e) => {
     console.log('want to delete?')
     console.log(e)
     document.querySelector('#deleteID').action = `/contribute/${e.id}?_method=DELETE`
@@ -32,58 +43,67 @@ let confirmDelete = async(e) => {
     DOM.btnCancelDelete.addEventListener('click', () => {
         $('#modalConfirmDelete').modal('hide')
     })
-    
+
 }
 
 let showForms = async (e) => {
     console.log(e)
-    try{
+    try {
         const res = await axios.get(`http://localhost:5500/contribute/${e.id}`)
         let contribution = res.data
-        let newHTML = `<div class="card review-main" id="${contribution.id}">
+        let newHTML = `<div class="card review-main editCard" id="${contribution._id}">
                             <div class="card-body">
-                                <form action="/contribute/${e.id}" method="post">
-                                    <h5 class="card-title review-user" id="${contribution.contributor}"></h5>
-                                    <div class="form-group">
-                                    <label for="bisayaPhrase">Bisaya Phrase</label>
-                                    <input type="text" class="form-control" id="bisayaPhrase" name="bisayaPhrase"
-                                        value="${contribution.bisayaPhrase}">
-                                    </div>
-                                    <div class="form-group">
-                                    <label for="englishPhrase">English Phrase</label>
-                                    <input type="text" class="form-control" id="englishPhrase" name="englishPhrase"
-                                        value="${contribution.englishPhrase}">
-                                    </div>
-                                    <div class="form-group">
-                                    <label for="lesson">Select Lesson</label>
-                                    <select class="form-control" id="lesson" name="lesson">
-                                        <option>Greetings</option>
-                                        <option>Questions</option>
-                                        <option>Family</option>
-                                        <option>Travelling</option>
-                                    </select>
-                                    </div>
-                                    <button type="submit" class="btn btn-success accept ">Accept Submission</button>
-                                </form>
+                            <h5 class="card-title review-user" id="">${contribution.contributor.username}</h5>
+                            <div class="form-group">
+                                <label for="bisayaPhrase">Cebuano Phrase</label>
+                                <input type="text" class="form-control"  name="bisayaPhrase"
+                                value="${contribution.bisayaPhrase}">
                             </div>
+                            <div class="form-group">
+                                <label for="bisayaMeaning">Cebuano Meaning</label>
+                                <input type="text" class="form-control" name="bisayaMeaning"
+                                value="${contribution.bisayaMeaning}">
+                            </div>
+                            <div class="form-group">
+                                <label for="englishPhrase">English Phrase</label>
+                                <input type="text" class="form-control"  name="englishPhrase"
+                                value="${contribution.englishPhrase}">
+                            </div>
+                            <div class="form-group">
+                                <label for="englishMeaning">English Meaning</label>
+                                <input type="text" class="form-control"  name="englishMeaning"
+                                value="${contribution.englishMeaning}">
+                            </div>
+                            <button type="submit" class="btn btn-success accept ">Accept Submission</button>
+                        </div>
                         </div>`
         let editCard = document.createElement('div')
         editCard.innerHTML = newHTML
         e.parentNode.insertBefore(editCard, e.nextStibling)
-        let acceptBtn = document.querySelector('.accept')
-        acceptBtn.addEventListener('click', acceptSubmission)
+        setEventListeners()
 
     } catch (error) {
         console.log(error.message)
     }
-    
+
 }
 
 
-
-if(DOM.card){
+function setEventListeners() {
+    let editCards = document.querySelectorAll('.editCard')
+    editCards.forEach(element => {
+        element.addEventListener('click', (e) => {
+            if(e.target.classList.contains('.accept')){
+                console.log('Accepting submission for', e.target.parentNode.parentNode)
+                acceptSubmission(e.target.parentNode.parentNode)
+            }
+        })
+    });
+}
+if (DOM.card) {
     DOM.card.forEach(card => {
         card.addEventListener('click', cardClicked)
     });
-    
+
 }
+setEventListeners()

@@ -14,14 +14,20 @@ router.get('/', isLoggedIn, (req, res) => {
 
 router.post('/', isLoggedIn, async (req, res) => {
     try{
-        let contribution = splitWords(req.body.bisayaPhrase, req.body.englishPhrase, req.body.lesson)
+        let contribution = {
+            bisayaPhrase: req.body.bisayaPhrase,
+            englishPhrase: req.body.englishPhrase,
+            bisayaMeaning: req.body.bisayaMeaning,
+            englishMeaning: req.body.englishMeaning
+        }
         let user = await User.findById(req.user.id)
         contribution.contributor = user
         let newContribution = await Contribution.create(contribution)
         user.contributions.push(newContribution)
         user.save()
-        res.redirect('/success')
+        res.redirect('../contribute/success')
     } catch(e){
+        console.log('error')
         req.flash('error', 'Something went wrong with the submission')
         res.redirect('/')
     }
@@ -31,6 +37,7 @@ router.post('/', isLoggedIn, async (req, res) => {
 router.get('/success', isLoggedIn, (req, res) => {
     res.render('contributeSuccess')
 })
+
 router.get('/review', isAdmin, async (req, res) => {
     let contributions = await Contribution.find({}).populate('contributor')
     
@@ -59,7 +66,7 @@ router.delete('/:reviewID', isAdmin, async (req, res) => {
 })
 
 router.get('/:reviewID', isAdmin, async (req, res) => {
-    let contributions = await Contribution.findById(req.params.reviewID)
+    let contributions = await Contribution.findById(req.params.reviewID).populate('contributor')
     res.send(contributions)
 })
 

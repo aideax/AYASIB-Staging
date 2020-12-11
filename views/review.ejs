@@ -2,10 +2,10 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="ayasibIcon.png">
-  <%- include('partials/css') %>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="ayasibIcon.png">
+    <%- include("partials/css") %>
   <link rel="stylesheet" href="/css/review.css">
   
   <title>Admin Submissions Review</title>
@@ -26,12 +26,14 @@
     <div class="card review-main" id="<%= element._id %>">
       <div class="card-body">
         <h5 class="card-title review-user" id=""><%= element.contributor.username %></h5>
-        <label class="bisaya-label"><strong>Bisaya Phrase</strong></label>
+        <label class="bisaya-label"><strong>Cebuano Phrase</strong></label>
         <p class="bisayaPhrase"><%= element.bisayaPhrase %></p>
+        <label class="bisaya-label"><strong>Cebuano Meaning</strong></label>
+        <p class="bisayaMeaning"><%= element.bisayaMeaning %></p>
         <label class="english-label"><strong>English Phrase</strong></label>
         <p class="englishPhrase"><%= element.englishPhrase %></p>
-        <label class="lesson-label"><strong>Use-Case</strong></label>
-        <p class="lesson"><%= element.lesson %></p>
+        <label class="bisaya-label"><strong>English Meaning</strong></label>
+        <p class="englishMeaning"><%= element.englishMeaning %></p>
         <small>Date submitted: <%= element.dateSubmitted.toLocaleDateString() %></small><br>
         <button type="button" class="btn btn-warning edit">Edit</button>
         <button type="button" class="btn btn-danger delete">Delete</button>
@@ -40,27 +42,26 @@
     <div class="card review-main hide" id="<%= element._id %>">
       <div class="card-body">
         <h5 class="card-title review-user" id=""><%= element.contributor.username %></h5>
-        <form>
           <div class="form-group">
             <label for="bisayaPhrase">Bisaya Phrase</label>
-            <input type="text" class="form-control" id="bisayaPhrase" name="bisayaPhrase"
+            <input type="text" class="form-control"  name="bisayaPhrase"
               value="<%= element.bisayaPhrase %>">
           </div>
           <div class="form-group">
+            <label for="bisayaMeaning">Cebuano Meaning</label>
+            <input type="text" class="form-control"  name="bisayaMeaning"
+              value="<%= element.bisayaMeaning %>">
+          </div>
+          <div class="form-group">
             <label for="englishPhrase">English Phrase</label>
-            <input type="text" class="form-control" id="englishPhrase" name="englishPhrase"
+            <input type="text" class="form-control"  name="englishPhrase"
               value="<%= element.englishPhrase %>">
           </div>
           <div class="form-group">
-            <label for="lesson">Select Lesson</label>
-            <select class="form-control" id="lesson" name="lesson">
-              <option>Greetings</option>
-              <option>Questions</option>
-              <option>Family</option>
-              <option>Travelling</option>
-            </select>
+            <label for="englishMeaning">English Meaning</label>
+            <input type="text" class="form-control"  name="englishMeaning"
+              value="<%= element.englishMeaning %>">
           </div>
-        </form>
       </div>
     </div>
   </div>

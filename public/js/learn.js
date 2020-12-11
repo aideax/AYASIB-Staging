@@ -215,7 +215,7 @@ let showQuestions = async () => {
         score++
         DOM.progress.setAttribute('aria-valuenow', (score * 10));
         DOM.progress.setAttribute('style', `width: ${score*10}%`)
-        if (score === 2) {
+        if (score === 10) {
             if (!DOM.username) {
                 console.log('Progress not saved')
             } else {
@@ -508,9 +508,7 @@ let showQuestions = async () => {
             $('#checkLoginModal').modal('show');
             DOM.modalConfirm.addEventListener('click', () => {
                 $('#checkLoginModal').modal('hide')
-                $('#loginModal').modal('show')
-                DOM.modalBtnLogin.addEventListener('click', login)
-
+                window.location.href = "http://localhost:5500/user/login"
             })
             DOM.modalLater.addEventListener('click', () => {
                 $('#checkLoginModal').modal('hide')

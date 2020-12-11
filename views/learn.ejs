@@ -106,7 +106,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    Commenting and Rating can only be done by logged in users. <br>
+                    Commenting and Replying can only be done by logged in users. <br>
                     Do you want to log in?
                 </div>
                 <div class="modal-footer">
@@ -116,39 +116,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Login</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                    <div class="form-group short">
-                        <label for="modalUsername">Username</label>
-                        <input type="text" class="form-control" id="modalUsername" name="modalUsername"
-                            placeholder="Username" required>
-                    </div>
-                    <div class="form-group short">
-                        <label for="modalPassword">Password</label>
-                        <input type="password" class="form-control" id="modalPassword" name="modalPassword"
-                            placeholder="Password" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary" id="modalBtnLogin">Login</button>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary modalLater" data-dismiss="modal">Maybe Later</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
+    
 
     <h1 id='lesson' class="hide"><%= lesson %></h1>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

@@ -3,8 +3,8 @@ const mongoose = require('mongoose')
 let contributionSchema = new mongoose.Schema({
     bisayaPhrase: String,
     englishPhrase: String,
-    bisayaWords: [{type: String}],
-    englishWords:[{type: String}],
+    bisayaMeaning: String,
+    englishMeaning: String,
     contributor: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
@@ -13,7 +13,6 @@ let contributionSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    lesson: String,
     userID: String
 })
 

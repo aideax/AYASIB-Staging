@@ -59,15 +59,6 @@ router.post('/login', passport.authenticate('local', {
     })
 
 
-router.post('/login/quick', passport.authenticate('local', {
-        failureFlash: true,
-        failureRedirect: '/login',
-        failureMessage: 'Please enter valid username or password'
-    }),
-    async (req, res) => {
-        res.status(200)
-    })
-
 
 router.get('/profile', isLoggedIn, async (req, res) => {
     let user = await User.findById(req.user.id)
