@@ -115,7 +115,7 @@ router.post('/forgot', async (req, res) => {
           };
           smtpTransport.sendMail(mailOptions, function(err) {
             console.log('mail sent');
-            req.flash('success', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
+            req.flash('success', 'An e-mail has been sent to ' + user.email + ' with further instructions. You may need to check in your Spam emails');
            
             done(err, 'done');
           });
