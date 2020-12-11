@@ -1,6 +1,7 @@
 let eInput = document.getElementById('ePhrase')
 let bInput = document.getElementById('bPhrase')
 let lesson = document.getElementById('lesson')
+let title = document.getElementById('title')
 console.log("Loaded addPhrase.js")
 
 let splitWords = (bPhrase, ePhrase, lesson) => {
@@ -12,7 +13,8 @@ let splitWords = (bPhrase, ePhrase, lesson) => {
         translation: ePhrase,
         bisayaWords: splitBisaya,
         englishWords: splitEnglish,
-        lesson: lesson
+        lesson: lesson,
+        lessonTitle: title.value
     }
 }
 

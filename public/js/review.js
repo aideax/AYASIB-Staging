@@ -1,4 +1,3 @@
-
 let DOM = {
     card: document.querySelectorAll('.review-main'),
     btnCancelDelete: document.querySelector('.btnCancelDelete'),
@@ -17,20 +16,36 @@ let cardClicked = (e) => {
         console.log('deleting')
         confirmDelete(e.target.parentNode.parentNode)
     }
-    if(e.target.classList.contains('accept')){
+    if (e.target.classList.contains('accept')) {
         console.log('accepting')
         acceptSubmission(e.target.parentNode.parentNode)
     }
-   
+
 }
 
 let acceptSubmission = async (e) => {
     let card = e
-    console.log('Accepting Submission', card)
-    console.log('Children', card.firstChild.nextElementSibling)
+    let usernameElement = card.firstChild.nextElementSibling.firstChild.nextElementSibling
+    let bisayaPhraseElement = usernameElement.nextElementSibling
+    let bisayaMeaningElement = bisayaPhraseElement.nextElementSibling
+    let englishPhraseElement = bisayaMeaningElement.nextElementSibling
+    let englishMeaningElement = englishPhraseElement.nextElementSibling
 
-
-    //const res = await axios.post(`http://localhost:5500/dictionary/add`, {})
+    let username = usernameElement.textContent
+    let bisayaWord = bisayaPhraseElement.firstChild.nextElementSibling.nextElementSibling.value
+    let bisayaMeaning = bisayaMeaningElement.firstChild.nextElementSibling.nextElementSibling.value
+    let englishWord = englishPhraseElement.firstChild.nextElementSibling.nextElementSibling.value
+    let englishMeaning = englishMeaningElement.firstChild.nextElementSibling.nextElementSibling.value
+    const deleteRes = await axios.delete(`http://localhost:5500/contribute/${e.id}/success`)
+    const postRes = await axios.post(`http://localhost:5500/dictionary/add/success`, {
+        bisayaWord: bisayaWord,
+        englishWord: englishWord,
+        bisayaMeaning: bisayaMeaning,
+        englishMeaning: englishMeaning,
+        partOfSpeech: ' ',
+        contributor: username
+    })
+    window.location.href = `http://localhost:5500/contribute/review`
 }
 
 
@@ -93,17 +108,21 @@ function setEventListeners() {
     let editCards = document.querySelectorAll('.editCard')
     editCards.forEach(element => {
         element.addEventListener('click', (e) => {
-            if(e.target.classList.contains('.accept')){
-                console.log('Accepting submission for', e.target.parentNode.parentNode)
+            if (e.target.classList.contains('accept')) {
                 acceptSubmission(e.target.parentNode.parentNode)
             }
         })
     });
 }
+
+function displayAcceptAlert() {
+
+}
+
+
 if (DOM.card) {
     DOM.card.forEach(card => {
         card.addEventListener('click', cardClicked)
     });
 
 }
-setEventListeners()

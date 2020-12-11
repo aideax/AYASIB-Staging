@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="ayasibIcon.png">
+    <%- include('partials/header') %>
     <%- include('partials/css') %>
     <link rel="stylesheet" href="/css/learn.css">
     
-    <title><%= lesson %></title>
+    
 </head>
 
 <body>
@@ -26,7 +20,7 @@
                     aria-valuemax="100"></div>
             </div>
             <div class="question">
-                Let's learn some <%= lesson %>
+                Let's learn about <%= data.lessonTitle %>
             </div>
             <div class="choices hide" id="choices">
                 <button class="btn choice chosen">Ano</button>
@@ -118,7 +112,7 @@
     </div>
     
 
-    <h1 id='lesson' class="hide"><%= lesson %></h1>
+    <h1 id='lesson' class="hide"><%= data.lesson %></h1>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <%- include('partials/js') %>
     <script src="/js/learn.js"></script>

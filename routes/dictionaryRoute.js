@@ -25,18 +25,22 @@ router.get('/', async (req, res) => {
 
 })
 
-router.get('/add', async (req, res) => {
+router.get('/add', isLoggedIn, isAdmin, async (req, res) => {
     res.render('dictionaryAdd')
 })
 
-router.post('/add', isAdmin, async (req, res) => {
+router.post('/add', isLoggedIn, isAdmin, async (req, res) => {
     let input = req.body
     let word = {
         bisayaWord: req.body.bisayaWord,
         englishWord: req.body.englishWord,
         bisayaMeaning: req.body.bisayaMeaning,
         englishMeaning: req.body.englishMeaning,
-        partOfSpeech: req.body.partOfSpeech
+        partOfSpeech: req.body.partOfSpeech,
+       
+    }
+    if(req.body.contributor){
+        word.contributor =  req.body.contributor
     }
     try {
         let add = await Word.create(word)
@@ -47,6 +51,30 @@ router.post('/add', isAdmin, async (req, res) => {
 
     res.redirect('add')
 })
+
+router.post('/add/success',isLoggedIn, isAdmin, async (req, res) => {
+    let input = req.body
+    let word = {
+        bisayaWord: req.body.bisayaWord,
+        englishWord: req.body.englishWord,
+        bisayaMeaning: req.body.bisayaMeaning,
+        englishMeaning: req.body.englishMeaning,
+        partOfSpeech: req.body.partOfSpeech,
+       
+    }
+    if(req.body.contributor){
+        word.contributor =  req.body.contributor
+    }
+    try {
+        let add = await Word.create(word)
+        req.flash('success', `Added ${add.bisayaWord} to the dictionary`)
+    } catch (e) {
+        req.flash('error', e.message)
+    }
+
+    res.redirect('add')
+})
+
 
 router.get('/search/:word/:page', async (req, res) => {
     let word = req.params.word.charAt(0).toUpperCase() + req.params.word.slice(1)

@@ -38,7 +38,9 @@ router.get('/success', isLoggedIn, (req, res) => {
     res.render('contributeSuccess')
 })
 
-router.get('/review', isAdmin, async (req, res) => {
+
+
+router.get('/review', isLoggedIn, isAdmin, async (req, res) => {
     let contributions = await Contribution.find({}).populate('contributor')
     
   
@@ -54,7 +56,7 @@ router.get('/review', isAdmin, async (req, res) => {
     res.render('review', {contributions: results.results})
 
 })
-router.delete('/:reviewID', isAdmin, async (req, res) => {
+router.delete('/:reviewID', isLoggedIn, isAdmin, async (req, res) => {
     try{
         let contribution = await Contribution.findByIdAndDelete(req.params.reviewID)
         
@@ -65,7 +67,19 @@ router.delete('/:reviewID', isAdmin, async (req, res) => {
     res.redirect('../contribute/review')
 })
 
-router.get('/:reviewID', isAdmin, async (req, res) => {
+router.delete('/:reviewID/success', isLoggedIn, isAdmin, async (req, res) => {
+    try{
+        let contribution = await Contribution.findByIdAndDelete(req.params.reviewID)
+        
+        req.flash('info', 'Contribution has been deleted')
+    } catch(e){
+        req.flash('error', e.message)
+    }
+    res.send('okay')
+})
+
+
+router.get('/:reviewID', isLoggedIn, isAdmin, async (req, res) => {
     let contributions = await Contribution.findById(req.params.reviewID).populate('contributor')
     res.send(contributions)
 })

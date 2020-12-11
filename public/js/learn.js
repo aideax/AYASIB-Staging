@@ -6,7 +6,7 @@ let getRandom = (size) => {
 //GET THE SET OF QUESTIONS BASED ON THE ${LESSON} PROVIDED AS PARAMETER
 let getQuestions = async () => {
 
-    const res = await axios.get(`http://localhost:5500/lessons/get/asd`)
+    const res = await axios.get(`http://localhost:5500/lessons/get/${lesson}`)
     if (res.data === 'denied') {
         location.href = `http://localhost:5500/lessons`
     } else {
@@ -36,6 +36,7 @@ let showQuestions = async () => {
                 }
             })
         });
+        console.log('All phrases', allPhrases)
     }
 
     getAllPhrases()
@@ -122,6 +123,8 @@ let showQuestions = async () => {
     for (let i = 0; i < 10; i++) {
         questions.push(getNewQuestion())
     }
+
+    console.log(questions)
 
     let DOM = {
         username: document.querySelector('#username'),

@@ -11,7 +11,8 @@ let questionSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Comment'
         }
-    ]
+    ],
+    lessonTitle: String,
 })
 
 module.exports = mongoose.model('Question', questionSchema);

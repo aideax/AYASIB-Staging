@@ -7,6 +7,7 @@ const {isLoggedIn} = require('../middleware')
 const {isAdmin} = require('../middleware')
 const { find, findByIdAndUpdate } = require('../models/questionModel')
 const async = require('async')
+const e = require('express')
 
 
 router.get('/', (req, res) => {
@@ -27,7 +28,8 @@ router.post('/add', isLoggedIn, isAdmin, async (req, res) => {
         translation: input.translation,
         bisayaWords: splitBisaya,
         englishWords: splitEnglish,
-        lesson: req.body.lesson
+        lesson: req.body.lesson,
+        lessonTitle: req.body.lessonTitle
     }
 
     
@@ -49,6 +51,7 @@ router.get('/get/asd', async (req, res) => {
 router.get('/get/:lesson', async (req, res) => {
     let lesson = req.params.lesson
     const questions = await Question.find({lesson: lesson})
+    console.log(questions)
     if(questions.length < 1){
         res.json('denied')
     } else{
@@ -61,13 +64,20 @@ router.get('/get/:lesson', async (req, res) => {
 
 router.get('/:lesson', async (req, res) => {
     let lesson = req.params.lesson
-    res.render('learn',{lesson: lesson})
+    const oneLesson = await Question.findOne({lesson: req.params.lesson})
+    if(oneLesson){
+        res.render('learn',{data:{lessonTitle: oneLesson.lessonTitle, lesson: req.params.lesson}})
+    } else {
+        res.redirect('../lessons')
+    }
     
 })
 
 router.get('/:lesson/done', async (req, res) => {
     let lesson = req.params.lesson
-    res.render('done',{lesson: lesson})
+    const questions = await Question.find({lesson: lesson})
+    res.send(questions.lessonTitle)
+    // res.render('done',{lesson: lesson})
     
 })
 

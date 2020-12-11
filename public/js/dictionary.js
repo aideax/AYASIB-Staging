@@ -37,7 +37,44 @@ async function updateCards() {
           DOM.wordContainer.appendChild(newAlert)
         }
         words.data.results.forEach(word => {
-            let newHTML = `<div class="card word-card">
+            let newHTML
+            if(word.contributor){
+               newHTML = `<div class="card word-card">
+            <div class="card-body">
+              <div class="container">
+                <div class="row">
+                  <div class="col bisaya-col">
+                    <small>Cebuano Word</small>
+                    <h5 class="card-title bisaya-word">
+                        ${word.bisayaWord} <small>[${word.partOfSpeech[0].toLowerCase()+ word.partOfSpeech.substring(1)}.]</small>
+                    </h5>
+                  </div>
+                  <div class="col">
+                    <small>English Word</small>
+                    <h5 class="card-title english-word">
+                      ${word.englishWord}
+                    </h5>
+                  </div>
+                  <div class="w-100"></div>
+                  <div class="col bisaya-col">
+                    <small>Cebuano Meaning</small>
+                    <p class="card-title bisaya-meaning">
+                      ${word.bisayaMeaning}
+                    </p>
+                  </div>
+                  <div class="col">
+                    <small>English Meaning</small>
+                    <p class="card-title english-meaning">
+                      ${word.englishMeaning}
+                    </p>
+                  </div>
+                </div>
+                <small> Submitted by: ${word.contributor}</small>
+              </div>
+            </div>
+          </div>`
+            } else {
+               newHTML = `<div class="card word-card">
             <div class="card-body">
               <div class="container">
                 <div class="row">
@@ -70,6 +107,8 @@ async function updateCards() {
               </div>
             </div>
           </div>`
+            }
+            
             let newCard = document.createElement('div')
             newCard.innerHTML = newHTML
             DOM.wordContainer.appendChild(newCard)

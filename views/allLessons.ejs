@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="ayasibIcon.png">
-
+  <%- include('partials/header') %> 
   <%- include("partials/css") %>
   <link rel="stylesheet" href="/css/allLessons.css">
-  <title>All Lessons</title>
 </head>
 
 <body>
@@ -31,7 +23,7 @@
   <% } %>
   <div class="container all-lessons">
     <%- include("partials/flash") %>
-    <div class="sectionLine">New Here? Learn Basic Phrases first!</div>
+    <div class="sectionLine">Getting Started: Learn Basic Phrases first!</div>
     <div class="row row-cols-1 row-cols-md-2">
       <div class="col mb-4">
         <div class="card">
@@ -50,7 +42,7 @@
       <div class="col mb-4">
         <div class="card">
           <div class="card-body">
-            <a href="/lessons/lesson1">
+            <a href="/lessons/lesson101">
               <h5 class="card-title">Questions</h5>
             </a>
             <p class="card-text">Learn how to ask a question</p>
@@ -84,22 +76,23 @@
         </div>
       </div>
     </div>
-  <div class="sectionLine">The Segmental Phonemes <a href=""><i class="far fa-lightbulb"></a></i> </div>
+  <div class="sectionLine">Lesson Proper I: The Segmental Phonemes <a data-toggle="modal"
+    data-target="#lesson100Modal"><i class="far fa-lightbulb"></a></i> </div>
 
     <div class="row row-cols-1 row-cols-md-2">
      
       <div class="col mb-4">
         <div class="card">
           <div class="card-body">
-            <a href="/lessons/greetings">
+            <a href="/lessons/lesson101">
               <h5 class="card-title">The Front Vowel</h5>
             </a>
             <p class="card-text">Ang Patingug Atubang</p>
             <button type="button" class="btn btn-yellow btnLesson cardBtn" data-toggle="modal"
-              data-target="#lesson1Modal">
+              data-target="#lesson101Modal">
               LESSON
             </button>
-            <a href="/lessons/greetings"><button type="button"
+            <a href="/lessons/lesson101"><button type="button"
                 class="btn btn-light-green btnPractice cardBtn">PRACTICE</button></a>
           </div>
         </div>
@@ -107,15 +100,16 @@
       <div class="col mb-4">
         <div class="card">
           <div class="card-body">
-            <a href="/lessons/lesson">
+            <a href="/lessons/lesson102">
               <h5 class="card-title">Center Vowel</h5>
             </a>
             <p class="card-text">Ang Patingug Tunga</p>
             <button type="button" class="btn btn-yellow btnLesson cardBtn" data-toggle="modal"
-              data-target="#lesson2Modal">
+              data-target="#lesson102Modal">
               LESSON
             </button>
-            <button type="button" class="btn btn-light-green btnPractice cardBtn">PRACTICE</button>
+            <a href="/lessons/lesson102"><button type="button"
+              class="btn btn-light-green btnPractice cardBtn">PRACTICE</button></a>
           </div>
         </div>
       </div>
@@ -125,9 +119,13 @@
             <a href="#">
               <h5 class="card-title">Back Vowel</h5>
             </a>
-            <p class="card-text">Learn how to address your family</p>
-            <button type="button" class="btn btn-yellow btnLesson cardBtn">LESSON</button>
-            <button type="button" class="btn btn-light-green btnPractice cardBtn">PRACTICE</button>
+            <p class="card-text">Ang Patingug Luyo</p>
+            <button type="button" class="btn btn-yellow btnLesson cardBtn" data-toggle="modal"
+              data-target="#lesson103Modal">
+              LESSON
+            </button>
+            <a href="/lessons/lesson103"><button type="button"
+              class="btn btn-light-green btnPractice cardBtn">PRACTICE</button></a>
           </div>
         </div>
       </div>
@@ -136,10 +134,10 @@
   </div>
 
 
-  <%- include('partials/lessons/lesson1') %>
-  <%- include('partials/lessons/lesson2') %>
-  <%- include('partials/lessons/lesson3') %>
-  <%- include('partials/lessons/lesson4') %>
+  <%- include('partials/lessons/lesson101') %>
+  <%- include('partials/lessons/lesson102') %>
+  <%- include('partials/lessons/lesson103') %>
+  <%- include('partials/lessons/lesson100') %>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <%- include('partials/js') %>
 </body>

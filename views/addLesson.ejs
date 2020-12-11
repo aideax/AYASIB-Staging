@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="ayasibIcon.png">
+    <%- include('partials/header') %> 
     <%- include("partials/css") %>
     <link rel="stylesheet" href="/css/learn.css">
-    <title>Admin Lesson Add</title>
+    
 </head>
 <body>
     <%- include("partials/navbar") %>
@@ -30,11 +24,27 @@
                 <div class="form-group short">
                 <label for="lesson">Lesson</label>
                 <select class="form-control form-control-md" id="lesson" name="lesson">
-                    <option>Greetings</option>
+                    <!-- <option>greetings</option>
+                    <option>questions</option>
+                    <option>family</option>
+                    <option>travelling</option>
+                    <option>general</option>
+                    <option>lesson101</option> -->
+                    <option>lesson102</option>
+                    <option>lesson103</option>
+                </select>
+                </div>
+                <div class="form-group short">
+                <label for="lessonTitle">Lesson Title</label>
+                <select class="form-control form-control-md" id="lessonTitle" name="lessonTitle">
+                    <!-- <option>Greetings</option>
                     <option>Questions</option>
                     <option>Family</option>
                     <option>Travelling</option>
                     <option>General</option>
+                    <option>The Front Vowel</option> -->
+                    <option>The Center Vowel</option>
+                    <option>The Back Vowel</option>
                 </select>
                 </div>
             <button type="submit" class="btn btn-primary" id="add">Submit</button>

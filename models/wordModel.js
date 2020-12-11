@@ -1,12 +1,13 @@
 const mongoose = require('mongoose')
 
 let wordSchema = new mongoose.Schema({
-    partOfSpeech: String,
+    partOfSpeech: {type: String, default:' '},
     bisayaWord: String,
     englishWord: String,
     bisayaMeaning: String,
-    englishMeaning: String,
-    tags: [{type: String}]
+    englishMeaning: {type: String, default:' '},
+    tags: [{type: String}],
+    contributor: String
     
 })
 
