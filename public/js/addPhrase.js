@@ -35,6 +35,6 @@ btnAdd.addEventListener('click', () => {
 
 let postPhrases = async(phrase) => {
 
-    const res = await axios.post(`https://ayasib.herokuapp.com/lessons/add`, {phrase: phrase})
+    const res = await axios.post(`http://ayasib.com/lessons/add`, {phrase: phrase})
     console.log('Successfully added', res)
 }

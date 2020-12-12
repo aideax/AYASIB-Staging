@@ -36,8 +36,8 @@ let acceptSubmission = async (e) => {
     let bisayaMeaning = bisayaMeaningElement.firstChild.nextElementSibling.nextElementSibling.value
     let englishWord = englishPhraseElement.firstChild.nextElementSibling.nextElementSibling.value
     let englishMeaning = englishMeaningElement.firstChild.nextElementSibling.nextElementSibling.value
-    const deleteRes = await axios.delete(`http://localhost:5500/contribute/${e.id}/success`)
-    const postRes = await axios.post(`http://localhost:5500/dictionary/add/success`, {
+    const deleteRes = await axios.delete(`http://ayasib.com/contribute/${e.id}/success`)
+    const postRes = await axios.post(`http://ayasib.com/dictionary/add/success`, {
         bisayaWord: bisayaWord,
         englishWord: englishWord,
         bisayaMeaning: bisayaMeaning,
@@ -45,7 +45,7 @@ let acceptSubmission = async (e) => {
         partOfSpeech: ' ',
         contributor: username
     })
-    window.location.href = `http://localhost:5500/contribute/review`
+    window.location.href = `http://ayasib.com/contribute/review`
 }
 
 
@@ -64,7 +64,7 @@ let confirmDelete = async (e) => {
 let showForms = async (e) => {
     console.log(e)
     try {
-        const res = await axios.get(`http://localhost:5500/contribute/${e.id}`)
+        const res = await axios.get(`http://ayasib.com/contribute/${e.id}`)
         let contribution = res.data
         let newHTML = `<div class="card review-main editCard" id="${contribution._id}">
                             <div class="card-body">

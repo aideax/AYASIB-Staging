@@ -26,7 +26,7 @@ let DOM = {
 
 async function updateCards() {
     try {
-        let words = await axios.get(`http://localhost:5500/dictionary/search/${DOM.searchInput.value}/${currentPage}`)
+        let words = await axios.get(`http://ayasib.com/dictionary/search/${DOM.searchInput.value}/${currentPage}`)
         while (DOM.wordContainer.firstChild) {
             DOM.wordContainer.removeChild(DOM.wordContainer.lastChild)
         }

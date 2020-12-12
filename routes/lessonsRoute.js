@@ -75,9 +75,7 @@ router.get('/:lesson', async (req, res) => {
 
 router.get('/:lesson/done', async (req, res) => {
     let lesson = req.params.lesson
-    const questions = await Question.find({lesson: lesson})
-    res.send(questions.lessonTitle)
-    // res.render('done',{lesson: lesson})
+    res.render('done',{lesson: lesson})
     
 })
 

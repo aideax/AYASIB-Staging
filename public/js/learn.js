@@ -6,9 +6,9 @@ let getRandom = (size) => {
 //GET THE SET OF QUESTIONS BASED ON THE ${LESSON} PROVIDED AS PARAMETER
 let getQuestions = async () => {
 
-    const res = await axios.get(`http://localhost:5500/lessons/get/${lesson}`)
+    const res = await axios.get(`http://ayasib.com/lessons/get/${lesson}`)
     if (res.data === 'denied') {
-        location.href = `http://localhost:5500/lessons`
+        location.href = `http://ayasib.com/lessons`
     } else {
         console.log('Questions loaded')
         return res.data
@@ -222,14 +222,14 @@ let showQuestions = async () => {
             if (!DOM.username) {
                 console.log('Progress not saved')
             } else {
-                const res = await axios.post(`http://localhost:5500/lessons/${lesson}/done`, {
+                const res = await axios.post(`http://ayasib.com/lessons/${lesson}/done`, {
                     words: allWords,
                     phrases: allPhrases
                 })
 
             }
 
-            return location.href = `http://localhost:5500/lessons/${lesson}/done`
+            return location.href = `http://ayasib.com/lessons/${lesson}/done`
 
 
         }
@@ -258,7 +258,7 @@ let showQuestions = async () => {
             if (content) {
                 comment.comment = content
 
-                const res = await axios.post(`http://localhost:5500/comments/${id}/add`, {
+                const res = await axios.post(`http://ayasib.com/comments/${id}/add`, {
                     comment: content
                 })
                 DOM.commentIn.value = ''
@@ -270,7 +270,7 @@ let showQuestions = async () => {
             }
         } else {
             if (window.confirm('You must be logged in to post a comment. Log in now?')) {
-                window.location.href = "http://localhost:5500/user/login"
+                window.location.href = "http://ayasib.com/user/login"
             }
         }
 
@@ -288,7 +288,7 @@ let showQuestions = async () => {
         let questionid = currentQuestion.id
         let comments = []
         try {
-            const res = await axios.get(`http://localhost:5500/comments/${questionid}/guest`)
+            const res = await axios.get(`http://ayasib.com/comments/${questionid}/guest`)
             clearComments()
             res.data.forEach(element => {
                 comments.push(element)
@@ -386,7 +386,7 @@ let showQuestions = async () => {
         while (replyContainer.lastElementChild.classList.contains('replyCard') || replyContainer.lastElementChild.classList.contains('alert')) {
             replyContainer.removeChild(replyContainer.lastElementChild)
         }
-        const replies = await axios.get(`http://localhost:5500/comments/reply/${e.id}`)
+        const replies = await axios.get(`http://ayasib.com/comments/reply/${e.id}`)
         if (replies.data.length) {
             replies.data.forEach(element => {
                 let replyHTML = `<div class="replyCard">
@@ -412,7 +412,7 @@ let showQuestions = async () => {
     }
 
     async function postReply(e, reply) {
-        const res = await axios.post(`http://localhost:5500/comments/reply/${e.id}`, {
+        const res = await axios.post(`http://ayasib.com/comments/reply/${e.id}`, {
             comment: reply.value
         })
         let newHTML = `<div class="alert alert-success alert-dismissible fade show" role="alert">Reply added!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>`
@@ -480,7 +480,7 @@ let showQuestions = async () => {
         target.classList.toggle('voted')
         target.firstChild.style.color = 'green'
         console.log('After click', target)
-        const res = await axios.post(`http://localhost:5500/ratings/upvote/${id}`)
+        const res = await axios.post(`http://ayasib.com/ratings/upvote/${id}`)
         console.log(res)
 
     }
@@ -511,7 +511,7 @@ let showQuestions = async () => {
             $('#checkLoginModal').modal('show');
             DOM.modalConfirm.addEventListener('click', () => {
                 $('#checkLoginModal').modal('hide')
-                window.location.href = "http://localhost:5500/user/login"
+                window.location.href = "http://ayasib.com/user/login"
             })
             DOM.modalLater.addEventListener('click', () => {
                 $('#checkLoginModal').modal('hide')
